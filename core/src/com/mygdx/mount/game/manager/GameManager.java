@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.mount.game.actors.Hero;
 import com.mygdx.mount.game.manager.game.services.DrawService;
+import com.mygdx.mount.game.manager.game.services.MoveService;
 import com.mygdx.mount.game.manager.game.services.TouchService;
 
 /**
@@ -16,8 +17,8 @@ import com.mygdx.mount.game.manager.game.services.TouchService;
  */
 public class GameManager extends Stage implements InputProcessor {
     private static final String BACKGROUND_URL = "sprites/background.jpg";
-    private static final int SCREEN_WIDTH = Gdx.graphics.getWidth();
-    private static final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
+    public static final int SCREEN_WIDTH = Gdx.graphics.getWidth();
+    public static final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
 
     public TouchService getTouchService() {
         return touchService;
@@ -32,6 +33,16 @@ public class GameManager extends Stage implements InputProcessor {
     Hero hero;
     Texture backgroundTexture;
     Batch batch;
+    MoveService moveService;
+
+    public TouchService.REALM getCurrentTouch() {
+        return currentTouch;
+    }
+
+    public void setCurrentTouch(TouchService.REALM currentTouch) {
+        this.currentTouch = currentTouch;
+    }
+
     TouchService.REALM currentTouch;
 
     public GameManager(Viewport viewport, Batch batch) {
@@ -39,6 +50,7 @@ public class GameManager extends Stage implements InputProcessor {
         Gdx.input.setInputProcessor(this);
         drawService = new DrawService();
         touchService = new TouchService();
+        moveService = new MoveService(this);
         hero = new Hero();
         backgroundTexture = new Texture(BACKGROUND_URL);
         this.batch = batch;
@@ -63,5 +75,6 @@ public class GameManager extends Stage implements InputProcessor {
         if (currentTouch != null) {
             System.out.println(currentTouch.name());
         }
+        moveService.act(hero);
     }
 }
