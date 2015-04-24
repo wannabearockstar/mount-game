@@ -14,7 +14,6 @@ import com.mygdx.mount.game.manager.game.services.DrawService;
  * Created by wannabe on 24.04.15.
  */
 public class GameManager extends Stage implements InputProcessor {
-public class GameManager extends Stage {
     private static final String BACKGROUND_URL = "sprites/background.jpg";
     private static final int SCREEN_WIDTH = Gdx.graphics.getWidth();
     private static final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
