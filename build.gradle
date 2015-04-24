@@ -26,6 +26,7 @@ allprojects {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        jcenter()
     }
 }
 
@@ -66,6 +67,11 @@ project(":core") {
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        compile(
+                [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.5.2'],
+                [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.5.2'],
+                [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.5.2']
+        )
     }
 }
 

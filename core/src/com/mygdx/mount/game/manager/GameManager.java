@@ -8,8 +8,12 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.mount.game.actors.Hero;
+import com.mygdx.mount.game.actors.Wall;
+import com.mygdx.mount.game.manager.game.services.BuildService;
 import com.mygdx.mount.game.manager.game.services.DrawService;
 import com.mygdx.mount.game.manager.game.services.TouchService;
+
+import java.util.ArrayList;
 
 /**
  * Created by wannabe on 24.04.15.
@@ -23,6 +27,7 @@ public class GameManager extends Stage implements InputProcessor {
     Texture backgroundTexture;
     Batch batch;
     TouchService.REALM currentTouch;
+    ArrayList<Wall> walls;
 
     public GameManager(Viewport viewport, Batch batch) {
         super(viewport, batch);
@@ -31,6 +36,7 @@ public class GameManager extends Stage implements InputProcessor {
         hero = new Hero();
         backgroundTexture = new Texture(BACKGROUND_URL);
         this.batch = batch;
+        walls = BuildService.createMap(BuildService.generateConfigurations());
     }
 
     @Override
@@ -39,6 +45,7 @@ public class GameManager extends Stage implements InputProcessor {
         batch.begin();
         batch.draw(backgroundTexture, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         drawService.drawHero(hero, getBatch());
+        drawService.drawWallArray(walls, getBatch());
         batch.end();
     }
 
