@@ -13,8 +13,35 @@ public class Hero extends Actor {
     public final static int MAX_SPEED = 200;
     public final static int ACCELERATION_TIME = 2;
     public final static float SLOW_CONSTANT = 50;
+    public final static float JUMP_MAX_HEIGHT = 100;
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    private State state;
+
+
+    public static enum State{
+        Ascending, Descending, Standing
+    }
+
     protected Texture heroTexture;
     private float heroSpeed;
+
+    public float getHeroJumpHeight() {
+        return heroJumpHeight;
+    }
+
+    public void setHeroJumpHeight(float heroJumpHeight) {
+        this.heroJumpHeight = heroJumpHeight;
+    }
+
+    private float heroJumpHeight;
 
     public float getSpeed() {
         return heroSpeed;
@@ -28,6 +55,7 @@ public class Hero extends Actor {
     public Hero() {
         heroTexture = new Texture(TEXTURE_URL);
         heroSpeed = 200;
+        state = State.Standing;
     }
 
     public Texture getHeroTexture() {
