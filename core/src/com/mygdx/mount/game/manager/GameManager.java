@@ -3,6 +3,7 @@ package com.mygdx.mount.game.manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -21,8 +22,8 @@ import java.util.ArrayList;
  */
 public class GameManager extends Stage implements InputProcessor {
     private static final String BACKGROUND_URL = "sprites/background.jpg";
-    public static final int SCREEN_WIDTH = Gdx.graphics.getWidth();
-    public static final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
+    public static final int SCREEN_WIDTH = 3196;
+    public static final int SCREEN_HEIGHT = 1000;
 
     public TouchService getTouchService() {
         return touchService;
@@ -38,6 +39,7 @@ public class GameManager extends Stage implements InputProcessor {
     Texture backgroundTexture;
     Batch batch;
     MoveService moveService;
+    Camera camera;
 
     public TouchService.REALM getCurrentTouch() {
         return currentTouch;
@@ -60,6 +62,7 @@ public class GameManager extends Stage implements InputProcessor {
         backgroundTexture = new Texture(BACKGROUND_URL);
         this.batch = batch;
         walls = BuildService.createMap(BuildService.generateConfigurations());
+        camera = getCamera();
     }
 
     @Override
@@ -83,5 +86,6 @@ public class GameManager extends Stage implements InputProcessor {
             System.out.println(currentTouch.name());
         }
         moveService.act(hero);
+        moveService.moveCameraWithHero(camera, hero, batch);
     }
 }

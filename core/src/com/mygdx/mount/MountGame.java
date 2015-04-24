@@ -12,6 +12,7 @@ public class MountGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	public static final int CAMERA_WIDTH = 640;
+	public static final int CAMERA_HEIGHT = 480;
 	GameManager manager;
 
 	@Override

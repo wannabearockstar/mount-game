@@ -1,6 +1,10 @@
 package com.mygdx.mount.game.manager.game.services;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.mygdx.mount.MountGame;
 import com.mygdx.mount.game.actors.Hero;
 import com.mygdx.mount.game.manager.GameManager;
 
@@ -95,5 +99,9 @@ public class MoveService {
         }
     }
 
-
+    public void moveCameraWithHero(Camera camera, Hero hero, Batch batch) {
+        camera.position.set(hero.getX(), MountGame.CAMERA_HEIGHT / 2 - 20 + hero.getY(), 0);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+    }
 }
