@@ -10,17 +10,19 @@ public class Hero extends Actor {
     public final static String TEXTURE_URL = "sprites/hero.jpg";
     public final static int WIDTH = 50;
     public final static int HEIGHT = 50;
+    public final static int MAX_SPEED = 200;
+    public final static int ACCELERATION_TIME = 2;
+    public final static float SLOW_CONSTANT = 50;
     protected Texture heroTexture;
+    private float heroSpeed;
 
-    public int getSpeed() {
+    public float getSpeed() {
         return heroSpeed;
     }
 
-    public void setSpeed(int heroSpeed) {
+    public void setSpeed(float heroSpeed) {
         this.heroSpeed = heroSpeed;
     }
-
-    private int heroSpeed;
 
 
     public Hero() {
