@@ -6,7 +6,8 @@ import com.badlogic.gdx.Gdx;
  * Created by wannabe on 24.04.15.
  */
 public class TouchService {
-    public enum REALM {
+
+    public static enum REALM {
         LEFT, RIGHT_UPPER, RIGHT_LOWER
     }
 
