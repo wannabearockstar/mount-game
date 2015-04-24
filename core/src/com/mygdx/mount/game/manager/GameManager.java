@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.mount.game.actors.Hero;
 import com.mygdx.mount.game.manager.game.services.DrawService;
+import com.mygdx.mount.game.manager.game.services.TouchService;
 
 /**
  * Created by wannabe on 24.04.15.
@@ -17,6 +18,16 @@ public class GameManager extends Stage implements InputProcessor {
     private static final String BACKGROUND_URL = "sprites/background.jpg";
     private static final int SCREEN_WIDTH = Gdx.graphics.getWidth();
     private static final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
+
+    public TouchService getTouchService() {
+        return touchService;
+    }
+
+    public void setTouchService(TouchService touchService) {
+        this.touchService = touchService;
+    }
+
+    TouchService touchService;
     DrawService drawService;
     Hero hero;
     Texture backgroundTexture;
@@ -26,6 +37,7 @@ public class GameManager extends Stage implements InputProcessor {
         super(viewport, batch);
         Gdx.input.setInputProcessor(this);
         drawService = new DrawService();
+        touchService = new TouchService();
         hero = new Hero();
         backgroundTexture = new Texture(BACKGROUND_URL);
         this.batch = batch;

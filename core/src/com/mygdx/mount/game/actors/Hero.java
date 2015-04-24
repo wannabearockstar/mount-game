@@ -12,8 +12,20 @@ public class Hero extends Actor {
     public final static int HEIGHT = 50;
     protected Texture heroTexture;
 
+    public int getSpeed() {
+        return heroSpeed;
+    }
+
+    public void setSpeed(int heroSpeed) {
+        this.heroSpeed = heroSpeed;
+    }
+
+    private int heroSpeed;
+
+
     public Hero() {
         heroTexture = new Texture(TEXTURE_URL);
+        heroSpeed = 200;
     }
 
     public Texture getHeroTexture() {
