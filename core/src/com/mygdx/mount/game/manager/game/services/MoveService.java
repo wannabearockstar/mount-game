@@ -54,7 +54,7 @@ public class MoveService {
     private static void slow(Hero hero, float delta) {
         if (hero.getSpeed() > 0) {
             System.out.println("speed: " + hero.getSpeed());
-            hero.setSpeed(hero.getSpeed() - (Hero.SLOW_CONSTANT * delta));
+            hero.setSpeed(hero.getSpeed() - (Hero.SLOW_CONSTANT * delta * 3));
             System.out.println("speed: " + hero.getSpeed());
         }
         if (hero.getSpeed() < 0) {
