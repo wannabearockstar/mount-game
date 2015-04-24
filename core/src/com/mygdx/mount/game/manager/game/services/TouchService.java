@@ -6,20 +6,19 @@ import com.badlogic.gdx.Gdx;
  * Created by wannabe on 24.04.15.
  */
 public class TouchService {
-    public static enum REALM {
+    public enum REALM {
         LEFT, RIGHT_UPPER, RIGHT_LOWER
     }
 
     /**
-     * @param x
-     * @param y
      * @return REALM
      */
-    public REALM getRealmByTouch(int x, int y) {
-        if (x < Gdx.graphics.getWidth() / 2) {
+    public static REALM getRealmByTouch() {
+
+        if (Gdx.input.getX() < Gdx.graphics.getWidth() / 2) {
             return REALM.LEFT;
         } else {
-            if (y > Gdx.graphics.getHeight() / 2) {
+            if (Gdx.input.getY() > Gdx.graphics.getHeight() / 2) {
                 return REALM.RIGHT_UPPER;
             }
             return REALM.RIGHT_LOWER;
