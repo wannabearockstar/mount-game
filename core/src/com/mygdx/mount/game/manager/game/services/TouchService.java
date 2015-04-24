@@ -18,7 +18,7 @@ public class TouchService {
         if (Gdx.input.getX() < Gdx.graphics.getWidth() / 2) {
             return REALM.LEFT;
         } else {
-            if (Gdx.input.getY() > Gdx.graphics.getHeight() / 2) {
+            if (Gdx.input.getY() < Gdx.graphics.getHeight() / 2) {
                 return REALM.RIGHT_UPPER;
             }
             return REALM.RIGHT_LOWER;
