@@ -4,9 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.mygdx.mount.game.actors.Hero;
 import com.mygdx.mount.game.manager.GameManager;
 
-/**
- * Created by wannabe on 24.04.15.
- */
+
 public class MoveService {
     GameManager manager;
     float delta;
@@ -27,7 +25,7 @@ public class MoveService {
                 slow(hero, delta);
             } else {
                 if (currentTouch.equals(TouchService.REALM.RIGHT_UPPER)) {
-                    jump(hero, delta);
+                    jump(hero);
                 } else {
                     doNothing(hero, delta);
                 }
@@ -51,11 +49,6 @@ public class MoveService {
         hero.setSpeed(hero.getSpeed() + Hero.MAX_SPEED / (Hero.ACCELERATION_TIME / delta));
         if (hero.getSpeed() > Hero.MAX_SPEED) hero.setSpeed(Hero.MAX_SPEED);
 
-        //TODO: Сделать обработку падения
-        if (hero.getY() == 0) {
-            hero.setState(Hero.State.Standing);
-        }
-
     }
 
     private static void slow(Hero hero, float delta) {
@@ -70,7 +63,7 @@ public class MoveService {
 
     }
 
-    private static void jump(Hero hero, float delta) {
+    private static void jump(Hero hero) {
         if (hero.getState().equals(Hero.State.Standing)) {
             hero.setState(Hero.State.Ascending);
         }
@@ -92,14 +85,13 @@ public class MoveService {
             }
         }
         if (hero.getState().equals(Hero.State.Descending)) {
-            float distance = hero.JUMP_MAX_HEIGHT * delta;
+            float distance = Hero.JUMP_MAX_HEIGHT * delta;
             if (hero.getY() - distance < 0) {
                 hero.setY(0);
                 hero.setState(Hero.State.Standing);
             } else {
                 hero.setY(hero.getY() - distance);
             }
-
         }
     }
 
