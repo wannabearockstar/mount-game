@@ -22,6 +22,7 @@ public class Wall extends Group {
         for (int i = 0; i < blocks.length; i++) {
             blocks[i].setX(x + i * Block.WIDTH);
             blocks[i].setY(y);
+            blocks[i].setBoundRectangle(x, y, Block.WIDTH, Block.HEIGHT);
             wall.blocks[i] = blocks[i];
         }
         wall.width = Block.WIDTH * blocks.length;
@@ -34,6 +35,7 @@ public class Wall extends Group {
         for (int i = 0; i < blocks.length; i++) {
             blocks[i].setX(x);
             blocks[i].setY(y + i * Block.HEIGHT);
+            blocks[i].setBoundRectangle(x, y, Block.WIDTH, Block.HEIGHT);
             wall.blocks[i] = blocks[i];
         }
         wall.width = Block.WIDTH;
@@ -47,6 +49,7 @@ public class Wall extends Group {
             Block block = new Block();
             block.setX(x + i * Block.WIDTH);
             block.setY(y);
+            block.setBoundRectangle(x, y, Block.WIDTH, Block.HEIGHT);
             wall.blocks[i] = block;
         }
         wall.width = Block.WIDTH * count;
@@ -60,6 +63,7 @@ public class Wall extends Group {
             Block block = new Block();
             block.setX(x);
             block.setY(y + i * Block.HEIGHT);
+            block.setBoundRectangle(x, y, Block.WIDTH, Block.HEIGHT);
             wall.blocks[i] = block;
         }
         wall.width = Block.WIDTH;

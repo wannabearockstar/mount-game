@@ -8,7 +8,7 @@ import com.mygdx.mount.game.models.SawConfiguration;
 /**
  * Created by dejibqp on 25.04.15.
  */
-public class Saw extends Actor {
+public class Saw extends Boundable {
     public final static String textureUrl = "sprites/circular.jpg";
     public static final int WIDTH = 50;
     public static final int HEIGHT = 50;
@@ -26,7 +26,8 @@ public class Saw extends Actor {
         sawSprite.setY(getY());
     }
 
-    public Saw() {
+    private Saw() {
+        super();
         sawSprite = new Sprite(new Texture(textureUrl));
         setWidth(WIDTH);
         setHeight(HEIGHT);
@@ -38,6 +39,7 @@ public class Saw extends Actor {
         setY(configuration.getY());
         sawSprite.setX(getX());
         sawSprite.setY(getY());
+        setBoundRectangle((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
     }
 
     public void rotate(float degrees) {

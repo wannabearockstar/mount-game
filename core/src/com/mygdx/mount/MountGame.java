@@ -13,6 +13,8 @@ import com.mygdx.mount.game.screens.GameScreen;
 public class MountGame extends Game {
 
     GameScreen gameScreen;
+    public static final int CAMERA_HEIGHT = 480;
+    public static final int CAMERA_WIDTH = 640;
 
     @Override
     public void create() {

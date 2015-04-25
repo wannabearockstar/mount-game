@@ -1,12 +1,13 @@
 package com.mygdx.mount.game.actors;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
  * Created by wannabe on 24.04.15.
  */
-public class Hero extends Actor {
+public class Hero extends Boundable {
     public final static String TEXTURE_URL = "sprites/hero.jpg";
     public final static int WIDTH = 50;
     public final static int HEIGHT = 50;
@@ -14,6 +15,7 @@ public class Hero extends Actor {
     public final static int ACCELERATION_TIME = 2;
     public final static float SLOW_CONSTANT = 50;
     public final static float JUMP_MAX_HEIGHT = 100;
+    protected Rectangle bounds;
 
     public State getState() {
         return state;
@@ -53,11 +55,12 @@ public class Hero extends Actor {
 
 
     public Hero() {
+        super();
         heroTexture = new Texture(TEXTURE_URL);
         heroSpeed = 200;
         state = State.Standing;
-        setWidth(WIDTH);
-        setHeight(HEIGHT);
+        this.setWidth(WIDTH);
+        this.setHeight(HEIGHT);
     }
 
     public Texture getHeroTexture() {

@@ -3,18 +3,15 @@ package com.mygdx.mount.game.manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.mount.game.actors.Hero;
 import com.mygdx.mount.game.actors.Saw;
 import com.mygdx.mount.game.actors.Wall;
-import com.mygdx.mount.game.manager.game.services.BuildService;
-import com.mygdx.mount.game.manager.game.services.DrawService;
-import com.mygdx.mount.game.manager.game.services.MoveService;
-import com.mygdx.mount.game.manager.game.services.TouchService;
+import com.mygdx.mount.game.manager.game.services.*;
 
 import java.util.ArrayList;
 
@@ -23,8 +20,8 @@ import java.util.ArrayList;
  */
 public class GameManager extends Stage implements InputProcessor {
     private static final String BACKGROUND_URL = "sprites/background.jpg";
-    public static final int SCREEN_WIDTH = Gdx.graphics.getWidth();
-    public static final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
+    public static final int SCREEN_WIDTH = 3196;
+    public static final int SCREEN_HEIGHT = 1000;
 
     public static enum GAME_STATE {
         VALID, INVALID
@@ -44,6 +41,17 @@ public class GameManager extends Stage implements InputProcessor {
     Texture backgroundTexture;
     Batch batch;
     MoveService moveService;
+    Camera camera;
+
+    public CollisionService getCollisionService() {
+        return collisionService;
+    }
+
+    public void setCollisionService(CollisionService collisionService) {
+        this.collisionService = collisionService;
+    }
+
+    CollisionService collisionService;
     GAME_STATE state;
 
     public TouchService.REALM getCurrentTouch() {
@@ -55,6 +63,15 @@ public class GameManager extends Stage implements InputProcessor {
     }
 
     TouchService.REALM currentTouch;
+
+    public ArrayList<Wall> getWalls() {
+        return walls;
+    }
+
+    public void setWalls(ArrayList<Wall> walls) {
+        this.walls = walls;
+    }
+
     ArrayList<Wall> walls;
     Saw[] saws;
 
@@ -67,9 +84,11 @@ public class GameManager extends Stage implements InputProcessor {
         hero = new Hero();
         backgroundTexture = new Texture(BACKGROUND_URL);
         this.batch = batch;
-        //walls = BuildService.createMap(BuildService.generateConfigurations());
         saws = BuildService.getSaws();
         state = GAME_STATE.VALID;
+        walls = BuildService.createMap(BuildService.generateConfigurations());
+        camera = getCamera();
+        collisionService = new CollisionService();
     }
 
     @Override
@@ -78,7 +97,7 @@ public class GameManager extends Stage implements InputProcessor {
         batch.begin();
         batch.draw(backgroundTexture, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         drawService.drawHero(hero, getBatch());
-        //drawService.drawWallArray(walls, getBatch());
+        drawService.drawWallArray(walls, getBatch());
         drawService.drawSaws(saws, batch);
         batch.end();
     }
@@ -91,27 +110,23 @@ public class GameManager extends Stage implements InputProcessor {
                 currentTouch = null;
             }
 
-            if (currentTouch != null) {
-                System.out.println(currentTouch.name());
-            }
             moveService.act(hero);
+            moveService.moveCameraWithHero(camera, hero, batch);
 
             for (int i = 0; i < saws.length; i++) {
-                saws[i].rotate(90*Gdx.graphics.getDeltaTime());
-                if (hero.getX() < saws[0].getX() + saws[0].getWidth() &&
-                        hero.getX() + hero.getWidth() > saws[0].getX() &&
-                        hero.getY() < saws[0].getY() + saws[0].getHeight() &&
-                        hero.getY() + hero.getHeight() > saws[0].getY()) {
+                if (collisionService.isHeroCollide(hero, saws[i])) {
                     state = GAME_STATE.INVALID;
-                    return;
                 }
+                saws[i].rotate(90 * Gdx.graphics.getDeltaTime());
             }
+            hero.setBoundRectangle((int) hero.getX(), (int) hero.getY(), (int) hero.getWidth(), (int) hero.getHeight());
         }
     }
 
-    public boolean checkGameValid(){
-        if(state.equals(GAME_STATE.INVALID)){
-           return false;
+
+    public boolean checkGameValid() {
+        if (state.equals(GAME_STATE.INVALID)) {
+            return false;
         }
         return true;
     }

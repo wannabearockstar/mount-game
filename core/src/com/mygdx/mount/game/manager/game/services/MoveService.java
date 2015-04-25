@@ -1,6 +1,10 @@
 package com.mygdx.mount.game.manager.game.services;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.mygdx.mount.MountGame;
 import com.mygdx.mount.game.actors.Hero;
 import com.mygdx.mount.game.manager.GameManager;
 
@@ -18,7 +22,6 @@ public class MoveService {
         isAccelerated = true;
         delta = Gdx.graphics.getDeltaTime();
         TouchService.REALM currentTouch = manager.getCurrentTouch();
-        System.out.println(currentTouch);
         if (currentTouch != null) {
             if (currentTouch.equals(TouchService.REALM.LEFT)) {
                 isAccelerated = false;
@@ -31,7 +34,7 @@ public class MoveService {
                 }
             }
         }
-        updateHero(hero, delta);
+        updateHero(hero, delta, manager);
         moveRight(hero, delta, isAccelerated);
 
     }
@@ -53,9 +56,7 @@ public class MoveService {
 
     private static void slow(Hero hero, float delta) {
         if (hero.getSpeed() > 0) {
-            System.out.println("speed: " + hero.getSpeed());
             hero.setSpeed(hero.getSpeed() - (Hero.SLOW_CONSTANT * delta * 3));
-            System.out.println("speed: " + hero.getSpeed());
         }
         if (hero.getSpeed() < 0) {
             hero.setSpeed(0);
@@ -73,7 +74,12 @@ public class MoveService {
 
     }
 
-    private static void updateHero(Hero hero, float delta) {
+    private static void updateHero(Hero hero, float delta, GameManager manager) {
+        if (hero.getState().equals(Hero.State.Standing)) {
+            if (!manager.getCollisionService().isHeroCollide(hero, manager.getWalls())) {
+                hero.setState(Hero.State.Descending);
+            }
+        }
         if (hero.getState().equals(Hero.State.Ascending)) {
             float distance = Hero.JUMP_MAX_HEIGHT * delta * 3;
             hero.setY(hero.getY() + distance);
@@ -95,5 +101,9 @@ public class MoveService {
         }
     }
 
-
+    public void moveCameraWithHero(Camera camera, Hero hero, Batch batch) {
+        camera.position.set(hero.getX(), MountGame.CAMERA_HEIGHT / 2 - 20 + hero.getY(), 0);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+    }
 }
