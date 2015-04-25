@@ -170,6 +170,10 @@ public class GameManager extends Stage implements InputProcessor {
                     collision.block.isExist = false;
                 }
             }
+
+            if (currentTouch != null && currentTouch.equals(TouchService.REALM.RIGHT_LOWER)) {
+                hero.activateConsumable();
+            }
         }
     }
 

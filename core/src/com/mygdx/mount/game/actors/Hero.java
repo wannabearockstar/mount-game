@@ -119,4 +119,15 @@ public class Hero extends Boundable {
     public ArrayList<Boundable> getConsumables() {
         return consumables;
     }
+
+    public boolean activateConsumable() {
+        if (consumables.isEmpty()) {
+            return false;
+        }
+
+        consumables.remove(consumables.size() - 1);
+        System.out.println("I used it! Now count of my consumables is " + consumables.size());
+        return true;
+
+    }
 }
