@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.mount.game.actors.Block;
 import com.mygdx.mount.game.actors.Hero;
 import com.mygdx.mount.game.actors.Wall;
 import com.mygdx.mount.game.manager.game.services.*;
@@ -21,6 +22,7 @@ public class GameManager extends Stage implements InputProcessor {
     private static final String BACKGROUND_URL = "sprites/background.jpg";
     public static final int SCREEN_WIDTH = 3196;
     public static final int SCREEN_HEIGHT = 1000;
+    CollisionService.Collision collision;
 
     public TouchService getTouchService() {
         return touchService;
@@ -84,9 +86,18 @@ public class GameManager extends Stage implements InputProcessor {
         moveService.moveCameraWithHero(camera, hero, batch);
 
         hero.setBoundRectangle((int) hero.getX(), (int) hero.getY(), (int) hero.getWidth(), (int) hero.getHeight());
+        System.out.println(hero.getState().name());
         if (collisionService.isHeroCollide(hero, walls)) {
-            System.out.println(collisionService.getCollisionForHero().direction.toString());
+            collision = collisionService.getCollisionForHero();
+            if (collision != null && collision.block instanceof Block) {
+                if (collision.direction == CollisionService.DIRECTION.DOWN) {
+                    hero.setState(Hero.State.Standing);
+                } else if (collision.direction == CollisionService.DIRECTION.RIGHT) {
+                    hero.setSpeed(0);
+                }
+            }
+        } else {
+            collision = null;
         }
-        ;
     }
 }
