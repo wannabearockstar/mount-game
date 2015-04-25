@@ -46,14 +46,14 @@ public class MoveService {
         }
         hero.setX(hero.getX() + distance);
 
-        if (!manager.getCollisionService().isHeroCollide(hero, manager.getWalls())) {
+        /*if (!manager.getCollisionService().isHeroCollide(hero, manager.getWalls())) {
             hero.coveredDistance += distance;
             if (hero.coveredDistance > Hero.STEP_SIZE) {
                 hero.runSpriteNumber = ((hero.runSpriteNumber) % 5) + 1;
                 hero.setCurrentSprite(Hero.heroSprites[hero.runSpriteNumber]);
                 hero.coveredDistance = 0;
             }
-        }
+        }*/
 
 
         if (!isAccelerated) {
@@ -77,6 +77,7 @@ public class MoveService {
     private static void jump(Hero hero) {
         if (hero.getState().equals(Hero.State.Standing)) {
             hero.setState(Hero.State.Ascending);
+            hero.setHeroJumpHeight(0);
         }
     }
 
@@ -87,29 +88,37 @@ public class MoveService {
     private static void updateHero(Hero hero, float delta, GameManager manager) {
         if (hero.getState().equals(Hero.State.Standing)) {
             if (!manager.getCollisionService().isHeroCollide(hero, manager.getWalls())) {
+                hero.currentJumpSpeed = 0;
                 hero.setState(Hero.State.Descending);
+                hero.setHeroJumpHeight(0);
             }
             hero.setCurrentSprite(Hero.heroSprites[4]);
         }
         if (hero.getState().equals(Hero.State.Ascending)) {
             hero.setCurrentSprite(Hero.heroSprites[6]);
-            float distance = Hero.JUMP_MAX_HEIGHT * delta * 3;
+            float distance = (Hero.MAX_SPEED * delta * (hero.currentJumpSpeed / 30));
             hero.setY(hero.getY() + distance);
-            hero.setHeroJumpHeight(hero.getHeroJumpHeight() + distance);
+            hero.heroJumpHeight += distance;
+            hero.currentJumpSpeed -= 5;
             if (hero.getHeroJumpHeight() > Hero.JUMP_MAX_HEIGHT) {
                 hero.setY(hero.getY() + distance);
+                hero.currentJumpSpeed = 0;
                 hero.setState(Hero.State.Descending);
-                hero.setHeroJumpHeight(0);
+                hero.setHeroJumpHeight(hero.getY() + hero.getHeroJumpHeight());
             }
         }
         if (hero.getState().equals(Hero.State.Descending)) {
             hero.setCurrentSprite(Hero.heroSprites[5]);
-            float distance = Hero.JUMP_MAX_HEIGHT * delta;
+            float distance = (hero.currentJumpSpeed * delta * (hero.currentJumpSpeed / 30));
+            hero.setHeroJumpHeight(hero.getHeroJumpHeight() - distance);
+            hero.currentJumpSpeed += 5;
             if (hero.getY() - distance < 0) {
                 hero.setY(0);
                 hero.setState(Hero.State.Standing);
+                hero.currentJumpSpeed = Hero.JUMP_MAX_HEIGHT;
             } else {
                 hero.setY(hero.getY() - distance);
+                hero.setHeroJumpHeight(hero.getHeroJumpHeight() - distance);
             }
         }
     }

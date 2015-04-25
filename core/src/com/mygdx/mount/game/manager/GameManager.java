@@ -122,6 +122,8 @@ public class GameManager extends Stage implements InputProcessor {
                 if (collision != null && (collision.block instanceof Wall || collision.block instanceof BaseBlock)) {
                     if (collision.direction == CollisionService.DIRECTION.DOWN) {
                         hero.setState(Hero.State.Standing);
+                        hero.currentJumpSpeed = Hero.JUMP_MAX_HEIGHT;
+                        hero.heroJumpHeight = 0;
                     } else if (collision.direction == CollisionService.DIRECTION.RIGHT) {
                         hero.setCurrentSprite(Hero.heroSprites[0]);
                         hero.setSpeed(0);
