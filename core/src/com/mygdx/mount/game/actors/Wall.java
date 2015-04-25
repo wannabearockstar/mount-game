@@ -10,7 +10,7 @@ public class Wall extends Boundable {
 
     public Wall(int count, int x, int y, boolean horizontal) {
 
-        baseBlocks = new CaveBlock[count];
+        baseBlocks = new BaseBlock[count];
         if (horizontal) {
             setBoundRectangle(x, y, count * CaveBlock.WIDTH, CaveBlock.HEIGHT);
         } else {
