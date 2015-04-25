@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.mount.game.actors.Block;
 import com.mygdx.mount.game.actors.Hero;
+import com.mygdx.mount.game.actors.Saw;
 import com.mygdx.mount.game.actors.Wall;
 import com.mygdx.mount.game.manager.game.services.*;
 
@@ -23,6 +24,10 @@ public class GameManager extends Stage implements InputProcessor {
     public static final int SCREEN_WIDTH = 3196;
     public static final int SCREEN_HEIGHT = 1000;
     CollisionService.Collision collision;
+
+    public static enum GAME_STATE {
+        VALID, INVALID
+    }
 
     public TouchService getTouchService() {
         return touchService;
@@ -39,7 +44,17 @@ public class GameManager extends Stage implements InputProcessor {
     Batch batch;
     MoveService moveService;
     Camera camera;
+
+    public CollisionService getCollisionService() {
+        return collisionService;
+    }
+
+    public void setCollisionService(CollisionService collisionService) {
+        this.collisionService = collisionService;
+    }
+
     CollisionService collisionService;
+    GAME_STATE state;
 
     public TouchService.REALM getCurrentTouch() {
         return currentTouch;
@@ -50,7 +65,17 @@ public class GameManager extends Stage implements InputProcessor {
     }
 
     TouchService.REALM currentTouch;
+
+    public ArrayList<Wall> getWalls() {
+        return walls;
+    }
+
+    public void setWalls(ArrayList<Wall> walls) {
+        this.walls = walls;
+    }
+
     ArrayList<Wall> walls;
+    Saw[] saws;
 
     public GameManager(Viewport viewport, Batch batch) {
         super(viewport, batch);
@@ -61,6 +86,8 @@ public class GameManager extends Stage implements InputProcessor {
         hero = new Hero();
         backgroundTexture = new Texture(BACKGROUND_URL);
         this.batch = batch;
+        saws = BuildService.getSaws();
+        state = GAME_STATE.VALID;
         walls = BuildService.createMap(BuildService.generateConfigurations());
         camera = getCamera();
         collisionService = new CollisionService();
@@ -73,18 +100,35 @@ public class GameManager extends Stage implements InputProcessor {
         batch.draw(backgroundTexture, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         drawService.drawHero(hero, getBatch());
         drawService.drawWallArray(walls, getBatch());
+        drawService.drawSaws(saws, batch);
         batch.end();
     }
 
     public void update() {
-        if (Gdx.input.isTouched()) {
-            currentTouch = TouchService.getRealmByTouch();
-        } else {
-            currentTouch = null;
-        }
-        moveService.act(hero);
-        moveService.moveCameraWithHero(camera, hero, batch);
+        if (state.equals(GAME_STATE.VALID)) {
+            if (Gdx.input.isTouched()) {
+                currentTouch = TouchService.getRealmByTouch();
+            } else {
+                currentTouch = null;
+            }
 
+            moveService.act(hero);
+            moveService.moveCameraWithHero(camera, hero, batch);
+
+            for (int i = 0; i < saws.length; i++) {
+                if (collisionService.isHeroCollide(hero, saws[i])) {
+                    state = GAME_STATE.INVALID;
+                }
+                saws[i].rotate(90 * Gdx.graphics.getDeltaTime());
+            }
+            hero.setBoundRectangle((int) hero.getX(), (int) hero.getY(), (int) hero.getWidth(), (int) hero.getHeight());
+        }
+    }
+
+
+    public boolean checkGameValid() {
+        if (state.equals(GAME_STATE.INVALID)) {
+            return false;
         hero.setBoundRectangle((int) hero.getX(), (int) hero.getY(), (int) hero.getWidth(), (int) hero.getHeight());
         System.out.println(hero.getState().name());
         if (collisionService.isHeroCollide(hero, walls)) {
@@ -99,5 +143,6 @@ public class GameManager extends Stage implements InputProcessor {
         } else {
             collision = null;
         }
+        return true;
     }
 }

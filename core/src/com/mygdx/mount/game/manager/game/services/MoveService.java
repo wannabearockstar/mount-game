@@ -34,7 +34,7 @@ public class MoveService {
                 }
             }
         }
-        updateHero(hero, delta);
+        updateHero(hero, delta, manager);
         moveRight(hero, delta, isAccelerated);
 
     }
@@ -74,7 +74,12 @@ public class MoveService {
 
     }
 
-    private static void updateHero(Hero hero, float delta) {
+    private static void updateHero(Hero hero, float delta, GameManager manager) {
+        if (hero.getState().equals(Hero.State.Standing)) {
+            if (!manager.getCollisionService().isHeroCollide(hero, manager.getWalls())) {
+                hero.setState(Hero.State.Descending);
+            }
+        }
         if (hero.getState().equals(Hero.State.Ascending)) {
             float distance = Hero.JUMP_MAX_HEIGHT * delta * 3;
             hero.setY(hero.getY() + distance);

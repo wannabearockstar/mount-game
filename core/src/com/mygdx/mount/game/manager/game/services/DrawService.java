@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.mount.game.actors.Block;
 import com.mygdx.mount.game.actors.Hero;
+import com.mygdx.mount.game.actors.Saw;
 import com.mygdx.mount.game.actors.Wall;
 
 import java.util.ArrayList;
@@ -23,6 +24,12 @@ public class DrawService {
     public void drawWall(Wall wall, Batch batch) {
         for (Block block : wall.getBlocks()) {
             drawBlock(block, batch);
+        }
+    }
+
+    public void drawSaws(Saw[] saws, Batch batch) {
+        for (int i = 0; i < saws.length; i++) {
+            saws[i].getSawSprite().draw(batch);
         }
     }
 

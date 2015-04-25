@@ -55,6 +55,23 @@ public class CollisionService {
         return false;
     }
 
+    public boolean isHeroCollide(Boundable hero, Boundable block){
+        if (isCollision(hero, block)) {
+            heroCollided = block;
+            if (block.getBounds().getX() > hero.getBounds().getX()) {
+                heroCollidedDirection = DIRECTION.RIGHT;
+            } else if (block.getBounds().getY() > hero.getBounds().getY()) {
+                heroCollidedDirection = DIRECTION.TOP;
+            } else if (block.getBounds().getX() + block.getBounds().getWidth() < hero.getBounds().getX()) {
+                heroCollidedDirection = DIRECTION.LEFT;
+            } else {
+                heroCollidedDirection = DIRECTION.DOWN;
+            }
+            return true;
+        }
+        return false;
+    }
+
     public boolean isHeroCollide(Hero hero, ArrayList<Wall> walls) {
         for (Wall wall : walls) {
             if (isHeroCollide(hero, wall.getBlocks())) {
