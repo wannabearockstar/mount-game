@@ -57,6 +57,7 @@ public class CollisionService {
 
     public boolean isHeroCollide(Boundable hero, Boundable block) {
         if (isCollision(hero, block)) {
+            System.out.println("here");
             heroCollided = block;
             if (block.getBounds().getX() > hero.getBounds().getX()) {
                 heroCollidedDirection = DIRECTION.RIGHT;
@@ -74,7 +75,7 @@ public class CollisionService {
 
     public boolean isHeroCollide(Hero hero, ArrayList<Wall> walls) {
         for (Wall wall : walls) {
-            if (isHeroCollide(hero, wall.getBlocks())) {
+            if (isHeroCollide(hero, wall)) {
                 return true;
             }
         }

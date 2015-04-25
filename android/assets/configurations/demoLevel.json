@@ -1,7 +1,13 @@
 [
   {
-    "count": 3,
+    "count": 12,
     "x": 700,
+    "y": 0,
+    "horizontal": true
+  },
+  {
+    "count": 1,
+    "x": 120,
     "y": 0,
     "horizontal": true
   },

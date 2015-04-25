@@ -118,7 +118,7 @@ public class GameManager extends Stage implements InputProcessor {
             hero.setBoundRectangle((int) hero.getX(), (int) hero.getY(), (int) hero.getWidth(), (int) hero.getHeight());
             if (collisionService.isHeroCollide(hero, walls)) {
                 collision = collisionService.getCollisionForHero();
-                if (collision != null && collision.block instanceof Block) {
+                if (collision != null && (collision.block instanceof Block || collision.block instanceof Wall)) {
                     if (collision.direction == CollisionService.DIRECTION.DOWN) {
                         hero.setState(Hero.State.Standing);
                     } else if (collision.direction == CollisionService.DIRECTION.RIGHT) {
