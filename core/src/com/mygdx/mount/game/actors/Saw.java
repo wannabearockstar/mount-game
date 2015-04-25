@@ -10,8 +10,8 @@ import com.mygdx.mount.game.models.SawConfiguration;
  */
 public class Saw extends Boundable {
     public final static String textureUrl = "sprites/circular.jpg";
-    public static final int WIDTH = 50;
-    public static final int HEIGHT = 50;
+    public static final int WIDTH = 25;
+    public static final int HEIGHT = 25;
     private Sprite sawSprite;
 
     public Sprite getSawSprite() {

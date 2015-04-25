@@ -2,16 +2,13 @@ package com.mygdx.mount.game.manager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.mount.game.actors.Block;
-import com.mygdx.mount.game.actors.Hero;
-import com.mygdx.mount.game.actors.Saw;
-import com.mygdx.mount.game.actors.Wall;
+import com.mygdx.mount.game.actors.*;
 import com.mygdx.mount.game.manager.game.services.*;
 
 import java.util.ArrayList;
@@ -20,9 +17,10 @@ import java.util.ArrayList;
  * Created by wannabe on 24.04.15.
  */
 public class GameManager extends Stage implements InputProcessor {
-    private static final String BACKGROUND_URL = "sprites/background.jpg";
-    public static final int SCREEN_WIDTH = 3196;
-    public static final int SCREEN_HEIGHT = 1000;
+    private static final String CAVE_URL = "sprites/cave-bg.jpg";
+    private static final String GROUND_URL = "sprites/wheat-field-bg.jpg";
+    public static final int SCREEN_WIDTH = 2000;
+    public static final int SCREEN_HEIGHT = 900;
     CollisionService.Collision collision;
 
     public static enum GAME_STATE {
@@ -40,7 +38,8 @@ public class GameManager extends Stage implements InputProcessor {
     TouchService touchService;
     DrawService drawService;
     Hero hero;
-    Texture backgroundTexture;
+    Texture caveTexture;
+    Texture groundTexture;
     Batch batch;
     MoveService moveService;
     Camera camera;
@@ -84,11 +83,13 @@ public class GameManager extends Stage implements InputProcessor {
         touchService = new TouchService();
         moveService = new MoveService(this);
         hero = new Hero();
-        backgroundTexture = new Texture(BACKGROUND_URL);
+        caveTexture = new Texture(CAVE_URL);
+        groundTexture = new Texture(GROUND_URL);
         this.batch = batch;
         saws = BuildService.getSaws();
         state = GAME_STATE.VALID;
-        walls = BuildService.createMap(BuildService.generateConfigurations());
+        walls = BuildService.createMap(BuildService.generateConfigurations("configurations/demoLevel.json"), new CaveBlock());
+        walls.addAll(BuildService.createMap(BuildService.generateConfigurations("configurations/groundLevel.json"), new GroundBlock()));
         camera = getCamera();
         collisionService = new CollisionService();
     }
@@ -97,7 +98,8 @@ public class GameManager extends Stage implements InputProcessor {
     public void draw() {
         update();
         batch.begin();
-        batch.draw(backgroundTexture, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        batch.draw(caveTexture, -500, -200, SCREEN_WIDTH, SCREEN_HEIGHT);
+        batch.draw(groundTexture, SCREEN_WIDTH - 500, -200, SCREEN_WIDTH, SCREEN_HEIGHT);
         drawService.drawHero(hero, getBatch());
         drawService.drawWallArray(walls, getBatch());
         drawService.drawSaws(saws, batch);
@@ -116,7 +118,8 @@ public class GameManager extends Stage implements InputProcessor {
             hero.setBoundRectangle((int) hero.getX(), (int) hero.getY(), (int) hero.getWidth(), (int) hero.getHeight());
             if (collisionService.isHeroCollide(hero, walls)) {
                 collision = collisionService.getCollisionForHero();
-                if (collision != null && (collision.block instanceof Block || collision.block instanceof Wall)) {
+                System.out.println(collision.block.getClass().toString());
+                if (collision != null && (collision.block instanceof Wall || collision.block instanceof BaseBlock)) {
                     if (collision.direction == CollisionService.DIRECTION.DOWN) {
                         hero.setState(Hero.State.Standing);
                     } else if (collision.direction == CollisionService.DIRECTION.RIGHT) {

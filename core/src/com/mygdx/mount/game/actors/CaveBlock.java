@@ -7,14 +7,14 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 /**
  * Created by wannabe on 24.04.15.
  */
-public class Block extends Boundable {
-    public final static String TEXTURE_URL = "sprites/wall.png";
-    public final static int WIDTH = 50;
-    public final static int HEIGHT = 50;
+public class CaveBlock extends BaseBlock {
+    public final static String TEXTURE_URL = "sprites/floor_1.jpg";
+    public final static int WIDTH = 30;
+    public final static int HEIGHT = 30;
     protected Texture blockTexture;
 
 
-    public Block() {
+    public CaveBlock() {
         super();
         blockTexture = new Texture(TEXTURE_URL);
     }

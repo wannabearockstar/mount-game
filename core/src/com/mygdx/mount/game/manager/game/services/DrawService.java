@@ -1,11 +1,7 @@
 package com.mygdx.mount.game.manager.game.services;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.mygdx.mount.game.actors.Block;
-import com.mygdx.mount.game.actors.Hero;
-import com.mygdx.mount.game.actors.Saw;
-import com.mygdx.mount.game.actors.Wall;
+import com.mygdx.mount.game.actors.*;
 
 import java.util.ArrayList;
 
@@ -13,8 +9,8 @@ import java.util.ArrayList;
  * Created by wannabe on 24.04.15.
  */
 public class DrawService {
-    public void drawBlock(Block block, Batch batch) {
-        batch.draw(block.getBlockTexture(), block.getX(), block.getY(), Block.WIDTH, Block.HEIGHT);
+    public void drawBlock(BaseBlock caveBlock, Batch batch) {
+        batch.draw(caveBlock.getBlockTexture(), caveBlock.getX(), caveBlock.getY(), CaveBlock.WIDTH, CaveBlock.HEIGHT);
     }
 
     public void drawHero(Hero hero, Batch batch) {
@@ -22,8 +18,8 @@ public class DrawService {
     }
 
     public void drawWall(Wall wall, Batch batch) {
-        for (Block block : wall.getBlocks()) {
-            drawBlock(block, batch);
+        for (BaseBlock caveBlock : wall.getCaveBlocks()) {
+            drawBlock(caveBlock, batch);
         }
     }
 

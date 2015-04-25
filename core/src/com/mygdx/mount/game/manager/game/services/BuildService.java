@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.mygdx.mount.game.actors.BaseBlock;
 import com.mygdx.mount.game.actors.Saw;
 import com.mygdx.mount.game.actors.Wall;
 
@@ -21,23 +22,23 @@ import com.mygdx.mount.game.models.SawConfiguration;
 public class BuildService {
     public static final ObjectMapper objectMapper = new ObjectMapper();
 
-    public static ArrayList<Wall> createMap(ArrayList<Configuration> configurations) {
+    public static ArrayList<Wall> createMap(ArrayList<Configuration> configurations, BaseBlock type) {
         ArrayList<Wall> walls = new ArrayList<Wall>();
         for (Configuration configuration : configurations) {
             Wall wall;
             if (configuration.horizontal) {
-                wall = Wall.buildHorizontal(configuration.count, configuration.x, configuration.y);
+                wall = Wall.buildHorizontal(configuration.count, configuration.x, configuration.y, type);
             } else {
-                wall = Wall.buildVertical(configuration.count, configuration.x, configuration.y);
+                wall = Wall.buildVertical(configuration.count, configuration.x, configuration.y, type);
             }
             walls.add(wall);
         }
         return walls;
     }
 
-    public static ArrayList<Configuration> generateConfigurations() {
+    public static ArrayList<Configuration> generateConfigurations(String jsonPath) {
         try {
-            return objectMapper.readValue(Gdx.files.internal("configurations/demoLevel.json").readString(),
+            return objectMapper.readValue(Gdx.files.internal(jsonPath).readString(),
                     new TypeReference<ArrayList<Configuration>>() {
                     });
         } catch (IOException e) {

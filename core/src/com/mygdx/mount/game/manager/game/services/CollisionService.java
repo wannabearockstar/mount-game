@@ -1,13 +1,10 @@
 package com.mygdx.mount.game.manager.game.services;
 
 import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.mygdx.mount.game.actors.Block;
 import com.mygdx.mount.game.actors.Boundable;
 import com.mygdx.mount.game.actors.Hero;
 import com.mygdx.mount.game.actors.Wall;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 /**
@@ -57,7 +54,6 @@ public class CollisionService {
 
     public boolean isHeroCollide(Boundable hero, Boundable block) {
         if (isCollision(hero, block)) {
-            System.out.println("here");
             heroCollided = block;
             if (block.getBounds().getX() > hero.getBounds().getX()) {
                 heroCollidedDirection = DIRECTION.RIGHT;
