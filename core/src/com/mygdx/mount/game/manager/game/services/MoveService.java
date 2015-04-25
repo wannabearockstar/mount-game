@@ -40,23 +40,24 @@ public class MoveService {
     }
 
     private static void moveRight(Hero hero, float delta, boolean isAccelerated) {
-        if (hero.getX() + hero.getSpeed() * delta > GameManager.SCREEN_WIDTH) {
+        float distance = hero.getSpeed() * delta;
+        if (hero.getX() + distance > GameManager.SCREEN_WIDTH) {
             hero.setX(0);
         }
-        hero.setX(hero.getX() + hero.getSpeed() * delta);
+        hero.setX(hero.getX() + distance);
 
 
         if (!isAccelerated) {
             return;
         }
-        hero.setSpeed(hero.getSpeed() + Hero.MAX_SPEED / (Hero.ACCELERATION_TIME / delta));
+        hero.setSpeed(hero.getSpeed() + 4 * Hero.MAX_SPEED / (Hero.ACCELERATION_TIME / delta));
         if (hero.getSpeed() > Hero.MAX_SPEED) hero.setSpeed(Hero.MAX_SPEED);
 
     }
 
     private static void slow(Hero hero, float delta) {
         if (hero.getSpeed() > 0) {
-            hero.setSpeed(hero.getSpeed() - (Hero.SLOW_CONSTANT * delta * 3));
+            hero.setSpeed(hero.getSpeed() - (Hero.SLOW_CONSTANT * delta * 5));
         }
         if (hero.getSpeed() < 0) {
             hero.setSpeed(0);
