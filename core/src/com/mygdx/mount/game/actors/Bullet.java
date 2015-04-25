@@ -9,8 +9,8 @@ import java.util.ArrayList;
  */
 public class Bullet extends Boundable {
     private final static String TEXTURE_URL = "sprites/wall.png";
-    public final static int WIDTH = 10;
-    public final static int HEIGHT = 10;
+    public final static int WIDTH = 15;
+    public final static int HEIGHT = 15;
     protected Texture blockTexture;
     public boolean forDelete = false;
 

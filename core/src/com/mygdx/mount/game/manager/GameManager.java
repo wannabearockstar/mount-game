@@ -127,7 +127,6 @@ public class GameManager extends Stage implements InputProcessor {
             hero.setBoundRectangle((int) hero.getX(), (int) hero.getY(), (int) hero.getWidth(), (int) hero.getHeight());
             if (collisionService.isHeroCollide(hero, walls)) {
                 collision = collisionService.getCollisionForHero();
-                ;
                 if (collision != null && (collision.block instanceof Wall || collision.block instanceof BaseBlock)) {
                     if (collision.direction == CollisionService.DIRECTION.DOWN) {
                         hero.setState(Hero.State.Standing);
@@ -156,6 +155,10 @@ public class GameManager extends Stage implements InputProcessor {
                     shooter.spawnBullet();
                 }
                 shooter.moveBullets();
+            }
+            if (collisionService.isHeroGetShot(hero, shooters)) {
+                state = GAME_STATE.INVALID;
+                System.out.println("get shot");
             }
         }
     }

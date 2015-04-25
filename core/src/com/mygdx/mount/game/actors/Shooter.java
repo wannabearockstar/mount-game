@@ -62,6 +62,7 @@ public class Shooter extends Boundable {
             } else {
                 bullet.setX(bullet.getX() - speed);
             }
+            bullet.setBoundRectangle((int) bullet.getX(), (int) bullet.getY(), (int) bullet.getWidth(), (int) bullet.getHeight());
             bulletsTmp.add(bullet);
         }
         this.bullets = bulletsTmp;
@@ -77,7 +78,9 @@ public class Shooter extends Boundable {
             bullet.setX(this.getX() + speed);
         } else {
             bullet.setX(this.getX() - speed);
+            bullet.setY(getY());
         }
+        bullet.setBoundRectangle((int) bullet.getX(), (int) bullet.getY(), (int) bullet.getWidth(), (int) bullet.getHeight());
         this.bullets.add(bullet);
         return bullet;
     }

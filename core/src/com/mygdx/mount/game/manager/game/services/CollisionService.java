@@ -1,9 +1,7 @@
 package com.mygdx.mount.game.manager.game.services;
 
 import com.badlogic.gdx.math.Intersector;
-import com.mygdx.mount.game.actors.Boundable;
-import com.mygdx.mount.game.actors.Hero;
-import com.mygdx.mount.game.actors.Wall;
+import com.mygdx.mount.game.actors.*;
 
 import java.util.ArrayList;
 
@@ -73,6 +71,17 @@ public class CollisionService {
         for (Wall wall : walls) {
             if (isHeroCollide(hero, wall)) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isHeroGetShot(Hero hero, Shooter[] shooters) {
+        for (Shooter shooter : shooters) {
+            for (Bullet bullet : shooter.bullets) {
+                if (isHeroCollide(hero, bullet)) {
+                    return true;
+                }
             }
         }
         return false;
