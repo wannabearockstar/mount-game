@@ -43,11 +43,11 @@ public class CollisionService {
                 if (block.getBounds().getX() > hero.getBounds().getX()) {
                     heroCollidedDirection = DIRECTION.RIGHT;
                 } else if (block.getBounds().getY() > hero.getBounds().getY()) {
-                    heroCollidedDirection = DIRECTION.DOWN;
+                    heroCollidedDirection = DIRECTION.TOP;
                 } else if (block.getBounds().getX() + block.getBounds().getWidth() < hero.getBounds().getX()) {
                     heroCollidedDirection = DIRECTION.LEFT;
                 } else {
-                    heroCollidedDirection = DIRECTION.TOP;
+                    heroCollidedDirection = DIRECTION.DOWN;
                 }
                 return true;
             }
