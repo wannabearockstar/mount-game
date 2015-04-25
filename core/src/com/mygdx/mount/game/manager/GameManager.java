@@ -147,7 +147,7 @@ public class GameManager extends Stage implements InputProcessor {
                 if (collisionService.isHeroCollide(hero, saws[i])) {
                     state = GAME_STATE.INVALID;
                 }
-                saws[i].rotate(90 * Gdx.graphics.getDeltaTime());
+                saws[i].rotate(180 * Gdx.graphics.getDeltaTime());
             }
 
             for (Shooter shooter : shooters) {

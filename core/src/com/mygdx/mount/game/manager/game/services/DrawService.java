@@ -24,8 +24,8 @@ public class DrawService {
     }
 
     public void drawSaws(Saw[] saws, Batch batch) {
-        for (int i = 0; i < saws.length; i++) {
-            saws[i].getSawSprite().draw(batch);
+        for (Saw saw : saws) {
+            batch.draw(saw.getSawSprite(), saw.getX(), saw.getY(), saw.getWidth() / 2, saw.getHeight() / 2, saw.getWidth(), saw.getHeight(), 1f, 1f, saw.getSawSprite().getRotation());
         }
     }
 

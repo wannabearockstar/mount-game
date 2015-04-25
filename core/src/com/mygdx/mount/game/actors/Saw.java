@@ -9,9 +9,9 @@ import com.mygdx.mount.game.models.SawConfiguration;
  * Created by dejibqp on 25.04.15.
  */
 public class Saw extends Boundable {
-    public final static String textureUrl = "sprites/circular.jpg";
-    public static final int WIDTH = 25;
-    public static final int HEIGHT = 25;
+    public final static String textureUrl = "sprites/circular_final.png";
+    public static final int WIDTH = 40;
+    public static final int HEIGHT = 40;
     private Sprite sawSprite;
 
     public Sprite getSawSprite() {
