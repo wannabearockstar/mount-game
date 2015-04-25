@@ -56,7 +56,7 @@ public class Hero extends Boundable {
         Ascending, Descending, Standing
     }
 
-    private float heroSpeed;
+    public float heroSpeed;
 
     public static TextureRegion[] heroSprites;
 
@@ -78,7 +78,8 @@ public class Hero extends Boundable {
         this.heroJumpHeight = heroJumpHeight;
     }
 
-    private float heroJumpHeight;
+    public float heroJumpHeight;
+    public float currentJumpSpeed;
 
     public float getSpeed() {
         return heroSpeed;
