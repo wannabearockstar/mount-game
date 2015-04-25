@@ -79,7 +79,6 @@ public class GameManager extends Stage implements InputProcessor {
     ArrayList<Wall> walls;
     Saw[] saws;
     Shooter[] shooters;
-    ArrayList<Bullet> bullets;
     Consumable[] consumables;
 
     public GameManager(Viewport viewport, Batch batch) {
@@ -161,7 +160,15 @@ public class GameManager extends Stage implements InputProcessor {
             }
             if (collisionService.isHeroGetShot(hero, shooters)) {
                 state = GAME_STATE.INVALID;
-                System.out.println("get shot");
+            }
+
+            if (collisionService.isHeroCollide(hero, consumables)) {
+                collision = collisionService.getCollisionForHero();
+                if (collision != null && collision.block instanceof Consumable && collision.block.isExist) {
+                    hero.getConsumables().add(collision.block);
+                    System.out.println(hero.getConsumables().size());
+                    collision.block.isExist = false;
+                }
             }
         }
     }

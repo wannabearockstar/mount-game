@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  * Created by wannabe on 25.04.15.
  */
 public class Boundable extends Actor {
+    public boolean isExist = true;
     protected Rectangle bounds;
 
     public Boundable() {

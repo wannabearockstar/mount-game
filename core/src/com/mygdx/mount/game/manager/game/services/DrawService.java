@@ -46,7 +46,9 @@ public class DrawService {
 
     public void drawConsumables(Consumable[] consumables, Batch batch) {
         for (Consumable consumable : consumables) {
-            batch.draw(consumable.getBlockTexture(), consumable.getX(), consumable.getY(), consumable.getWidth(), consumable.getHeight());
+            if (consumable.isExist) {
+                batch.draw(consumable.getBlockTexture(), consumable.getX(), consumable.getY(), consumable.getWidth(), consumable.getHeight());
+            }
         }
     }
 }

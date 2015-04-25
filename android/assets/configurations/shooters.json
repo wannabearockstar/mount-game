@@ -1,10 +1,2 @@
 [
-  {
-    "x": 200,
-    "y": 0,
-    "directionHolder": "UP",
-    "speed": 2,
-    "range": 600,
-    "step": 170
-  }
 ]

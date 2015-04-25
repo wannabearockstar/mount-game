@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+import java.util.ArrayList;
+
 /**
  * Created by wannabe on 24.04.15.
  */
@@ -18,6 +20,7 @@ public class Hero extends Boundable {
     public final static float JUMP_MAX_HEIGHT = 100;
     public final static int STEP_SIZE = 50;
 
+    protected ArrayList<Boundable> consumables = new ArrayList<Boundable>();
     public State getState() {
         return state;
     }
@@ -111,5 +114,9 @@ public class Hero extends Boundable {
 
     public TextureRegion getHeroTexture() {
         return currentSprite;
+    }
+
+    public ArrayList<Boundable> getConsumables() {
+        return consumables;
     }
 }
