@@ -15,12 +15,13 @@ public class GameScreen implements Screen {
     MountGame game;
     SpriteBatch batch;
     public static final int CAMERA_WIDTH = 640;
+    public static final int CAMERA_HEIGHT = 480;
     GameManager manager;
 
     public GameScreen(MountGame game) {
         this.game = game;
         batch = new SpriteBatch();
-        manager = new GameManager(new StretchViewport(CAMERA_WIDTH, Gdx.graphics.getHeight()), batch);
+        manager = new GameManager(new StretchViewport(CAMERA_WIDTH, CAMERA_HEIGHT), batch);
     }
 
     @Override

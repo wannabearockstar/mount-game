@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -24,6 +25,7 @@ public class GameManager extends Stage implements InputProcessor {
     public static final int SCREEN_HEIGHT = 900;
     public static final int REALM_WIDTH = 2000;
     CollisionService.Collision collision;
+    public BitmapFont font;
 
     public static enum GAME_STATE {
         VALID, INVALID
@@ -39,13 +41,13 @@ public class GameManager extends Stage implements InputProcessor {
 
     TouchService touchService;
     DrawService drawService;
-    Hero hero;
+    public Hero hero;
     Texture caveTexture;
     Texture groundTexture;
     Texture mountainTexture;
-    Batch batch;
+    public Batch batch;
     MoveService moveService;
-    Camera camera;
+    public Camera camera;
 
     public CollisionService getCollisionService() {
         return collisionService;
@@ -83,6 +85,7 @@ public class GameManager extends Stage implements InputProcessor {
 
     public GameManager(Viewport viewport, Batch batch) {
         super(viewport, batch);
+        font = new BitmapFont();
         Gdx.input.setInputProcessor(this);
         drawService = new DrawService();
         touchService = new TouchService();
@@ -105,6 +108,7 @@ public class GameManager extends Stage implements InputProcessor {
     public void draw() {
         update();
         batch.begin();
+
         batch.draw(caveTexture, -500, -200, REALM_WIDTH, SCREEN_HEIGHT);
         batch.draw(groundTexture, REALM_WIDTH - 500, -200, REALM_WIDTH, SCREEN_HEIGHT);
         batch.draw(mountainTexture, REALM_WIDTH * 2 - 500, -200, REALM_WIDTH, SCREEN_HEIGHT);
@@ -112,6 +116,7 @@ public class GameManager extends Stage implements InputProcessor {
         drawService.drawWallArray(walls, getBatch());
         drawService.drawSaws(saws, batch);
         drawService.drawShooters(shooters, getBatch());
+        drawService.drawStats(this);
         batch.end();
     }
 

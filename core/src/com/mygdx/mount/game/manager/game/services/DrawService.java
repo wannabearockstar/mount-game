@@ -1,7 +1,10 @@
 package com.mygdx.mount.game.manager.game.services;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.mount.game.actors.*;
+import com.mygdx.mount.game.manager.GameManager;
+import com.mygdx.mount.game.screens.GameScreen;
 
 import java.util.ArrayList;
 
@@ -42,5 +45,9 @@ public class DrawService {
                 batch.draw(bullet.getBlockTexture(), bullet.getX(), bullet.getY(), bullet.getWidth(), bullet.getHeight());
             }
         }
+    }
+
+    public void drawStats(GameManager manager) {
+        manager.font.draw(manager.batch, "Distance: " + (int)manager.hero.getX(), manager.camera.position.x - GameScreen.CAMERA_WIDTH / 2, (GameScreen.CAMERA_HEIGHT - 30));
     }
 }
