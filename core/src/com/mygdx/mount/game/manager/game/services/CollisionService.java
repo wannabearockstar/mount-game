@@ -55,7 +55,7 @@ public class CollisionService {
         return false;
     }
 
-    public boolean isHeroCollide(Boundable hero, Boundable block){
+    public boolean isHeroCollide(Boundable hero, Boundable block) {
         if (isCollision(hero, block)) {
             heroCollided = block;
             if (block.getBounds().getX() > hero.getBounds().getX()) {

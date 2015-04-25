@@ -1,13 +1,13 @@
 [
   {
     "count": 3,
-    "x": 500,
+    "x": 700,
     "y": 0,
     "horizontal": true
   },
   {
     "count": 3,
-    "x": 100,
+    "x": 200,
     "y": 100,
     "horizontal": false
   }

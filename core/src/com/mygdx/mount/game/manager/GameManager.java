@@ -115,13 +115,26 @@ public class GameManager extends Stage implements InputProcessor {
             moveService.act(hero);
             moveService.moveCameraWithHero(camera, hero, batch);
 
+            hero.setBoundRectangle((int) hero.getX(), (int) hero.getY(), (int) hero.getWidth(), (int) hero.getHeight());
+            if (collisionService.isHeroCollide(hero, walls)) {
+                collision = collisionService.getCollisionForHero();
+                if (collision != null && collision.block instanceof Block) {
+                    if (collision.direction == CollisionService.DIRECTION.DOWN) {
+                        hero.setState(Hero.State.Standing);
+                    } else if (collision.direction == CollisionService.DIRECTION.RIGHT) {
+                        hero.setSpeed(0);
+                    }
+                }
+            } else {
+                collision = null;
+            }
+
             for (int i = 0; i < saws.length; i++) {
                 if (collisionService.isHeroCollide(hero, saws[i])) {
                     state = GAME_STATE.INVALID;
                 }
                 saws[i].rotate(90 * Gdx.graphics.getDeltaTime());
             }
-            hero.setBoundRectangle((int) hero.getX(), (int) hero.getY(), (int) hero.getWidth(), (int) hero.getHeight());
         }
     }
 
@@ -129,19 +142,6 @@ public class GameManager extends Stage implements InputProcessor {
     public boolean checkGameValid() {
         if (state.equals(GAME_STATE.INVALID)) {
             return false;
-        hero.setBoundRectangle((int) hero.getX(), (int) hero.getY(), (int) hero.getWidth(), (int) hero.getHeight());
-        System.out.println(hero.getState().name());
-        if (collisionService.isHeroCollide(hero, walls)) {
-            collision = collisionService.getCollisionForHero();
-            if (collision != null && collision.block instanceof Block) {
-                if (collision.direction == CollisionService.DIRECTION.DOWN) {
-                    hero.setState(Hero.State.Standing);
-                } else if (collision.direction == CollisionService.DIRECTION.RIGHT) {
-                    hero.setSpeed(0);
-                }
-            }
-        } else {
-            collision = null;
         }
         return true;
     }
