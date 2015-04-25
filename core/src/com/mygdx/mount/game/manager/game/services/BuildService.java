@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.mygdx.mount.game.actors.BaseBlock;
-import com.mygdx.mount.game.actors.Saw;
-import com.mygdx.mount.game.actors.Shooter;
-import com.mygdx.mount.game.actors.Wall;
+import com.mygdx.mount.game.actors.*;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -15,6 +12,7 @@ import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mygdx.mount.game.models.Configuration;
+import com.mygdx.mount.game.models.ConsumableConfigurator;
 import com.mygdx.mount.game.models.SawConfiguration;
 import com.mygdx.mount.game.models.ShooterConfigurator;
 
@@ -82,6 +80,26 @@ public class BuildService {
         try {
             return objectMapper.readValue(Gdx.files.internal("configurations/shooters.json").readString(),
                     new TypeReference<ShooterConfigurator[]>() {
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Consumable[] getConsumables() {
+        ConsumableConfigurator[] configurations = getConsumableConfigurations();
+        Consumable[] consumables = new Consumable[configurations.length];
+        for (int i = 0; i < consumables.length; i++) {
+            consumables[i] = new Consumable(configurations[i]);
+        }
+        return consumables;
+    }
+
+    private static ConsumableConfigurator[] getConsumableConfigurations() {
+        try {
+            return objectMapper.readValue(Gdx.files.internal("configurations/consumables.json").readString(),
+                    new TypeReference<ConsumableConfigurator[]>() {
                     });
         } catch (IOException e) {
             e.printStackTrace();

@@ -80,6 +80,7 @@ public class GameManager extends Stage implements InputProcessor {
     Saw[] saws;
     Shooter[] shooters;
     ArrayList<Bullet> bullets;
+    Consumable[] consumables;
 
     public GameManager(Viewport viewport, Batch batch) {
         super(viewport, batch);
@@ -99,6 +100,7 @@ public class GameManager extends Stage implements InputProcessor {
         camera = getCamera();
         collisionService = new CollisionService();
         shooters = BuildService.getShooters();
+        consumables = BuildService.getConsumables();
     }
 
     @Override
@@ -112,6 +114,7 @@ public class GameManager extends Stage implements InputProcessor {
         drawService.drawWallArray(walls, getBatch());
         drawService.drawSaws(saws, batch);
         drawService.drawShooters(shooters, getBatch());
+        drawService.drawConsumables(consumables, getBatch());
         batch.end();
     }
 
