@@ -96,8 +96,7 @@ public class MoveService {
         }
         if (hero.getState().equals(Hero.State.Ascending)) {
             hero.setCurrentSprite(Hero.heroSprites[6]);
-            float distance = (hero.MAX_SPEED * delta * (hero.currentJumpSpeed / 30));
-            System.out.println("up distance:" + distance);
+            float distance = (Hero.MAX_SPEED * delta * (hero.currentJumpSpeed / 30));
             hero.setY(hero.getY() + distance);
             hero.heroJumpHeight += distance;
             hero.currentJumpSpeed -= 5;
@@ -106,7 +105,6 @@ public class MoveService {
                 hero.currentJumpSpeed = 0;
                 hero.setState(Hero.State.Descending);
                 hero.setHeroJumpHeight(hero.getY() + hero.getHeroJumpHeight());
-                System.out.println("Set Descending");
             }
         }
         if (hero.getState().equals(Hero.State.Descending)) {
