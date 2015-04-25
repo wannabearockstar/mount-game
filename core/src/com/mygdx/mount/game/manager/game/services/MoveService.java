@@ -103,7 +103,7 @@ public class MoveService {
     }
 
     public void moveCameraWithHero(Camera camera, Hero hero, Batch batch) {
-        camera.position.set(hero.getX(), MountGame.CAMERA_HEIGHT / 2 - 20 + hero.getY(), 0);
+        camera.position.set(hero.getX(), MountGame.CAMERA_HEIGHT / 2 - 20, 0);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
     }
