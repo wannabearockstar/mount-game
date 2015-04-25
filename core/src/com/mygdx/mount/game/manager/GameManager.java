@@ -97,6 +97,7 @@ public class GameManager extends Stage implements InputProcessor {
             moveService.act(hero);
 
             for (int i = 0; i < saws.length; i++) {
+                saws[i].rotate(90*Gdx.graphics.getDeltaTime());
                 if (hero.getX() < saws[0].getX() + saws[0].getWidth() &&
                         hero.getX() + hero.getWidth() > saws[0].getX() &&
                         hero.getY() < saws[0].getY() + saws[0].getHeight() &&
