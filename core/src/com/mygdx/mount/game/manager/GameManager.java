@@ -107,4 +107,11 @@ public class GameManager extends Stage implements InputProcessor {
             }
         }
     }
+
+    public boolean checkGameValid(){
+        if(state.equals(GAME_STATE.INVALID)){
+           return false;
+        }
+        return true;
+    }
 }

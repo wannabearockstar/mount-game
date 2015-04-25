@@ -1,29 +1,23 @@
 package com.mygdx.mount;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.mount.game.manager.GameManager;
+import com.mygdx.mount.game.screens.GameScreen;
 
-public class MountGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	public static final int CAMERA_WIDTH = 640;
-	GameManager manager;
+public class MountGame extends Game {
 
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		manager = new GameManager(new StretchViewport(CAMERA_WIDTH, Gdx.graphics.getHeight()), batch);
-	}
+    GameScreen gameScreen;
 
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		manager.draw();
-	}
+    @Override
+    public void create() {
+        gameScreen = new GameScreen(this);
+        setScreen(gameScreen);
+    }
+
 }
