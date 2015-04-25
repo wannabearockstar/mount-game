@@ -81,7 +81,7 @@ public class MoveService {
             }
         }
         if (hero.getState().equals(Hero.State.Ascending)) {
-            float distance = Hero.JUMP_MAX_HEIGHT * delta * 3;
+            float distance = Hero.JUMP_MAX_HEIGHT * delta * 5;
             hero.setY(hero.getY() + distance);
             hero.setHeroJumpHeight(hero.getHeroJumpHeight() + distance);
             if (hero.getHeroJumpHeight() > Hero.JUMP_MAX_HEIGHT) {
