@@ -35,16 +35,25 @@ public class MoveService {
             }
         }
         updateHero(hero, delta, manager);
-        moveRight(hero, delta, isAccelerated);
+        moveRight(hero, delta, isAccelerated, manager);
 
     }
 
-    private static void moveRight(Hero hero, float delta, boolean isAccelerated) {
+    private static void moveRight(Hero hero, float delta, boolean isAccelerated, GameManager manager) {
         float distance = hero.getSpeed() * delta;
         if (hero.getX() + distance > GameManager.SCREEN_WIDTH) {
             hero.setX(0);
         }
         hero.setX(hero.getX() + distance);
+
+        if (!manager.getCollisionService().isHeroCollide(hero, manager.getWalls())) {
+            hero.coveredDistance += distance;
+            if (hero.coveredDistance > Hero.STEP_SIZE) {
+                hero.runSpriteNumber = ((hero.runSpriteNumber) % 5) + 1;
+                hero.setCurrentSprite(Hero.heroSprites[hero.runSpriteNumber]);
+                hero.coveredDistance = 0;
+            }
+        }
 
 
         if (!isAccelerated) {
@@ -80,8 +89,10 @@ public class MoveService {
             if (!manager.getCollisionService().isHeroCollide(hero, manager.getWalls())) {
                 hero.setState(Hero.State.Descending);
             }
+            hero.setCurrentSprite(Hero.heroSprites[4]);
         }
         if (hero.getState().equals(Hero.State.Ascending)) {
+            hero.setCurrentSprite(Hero.heroSprites[6]);
             float distance = Hero.JUMP_MAX_HEIGHT * delta * 3;
             hero.setY(hero.getY() + distance);
             hero.setHeroJumpHeight(hero.getHeroJumpHeight() + distance);
@@ -92,6 +103,7 @@ public class MoveService {
             }
         }
         if (hero.getState().equals(Hero.State.Descending)) {
+            hero.setCurrentSprite(Hero.heroSprites[5]);
             float distance = Hero.JUMP_MAX_HEIGHT * delta;
             if (hero.getY() - distance < 0) {
                 hero.setY(0);

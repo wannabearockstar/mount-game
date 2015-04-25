@@ -112,8 +112,6 @@ public class GameManager extends Stage implements InputProcessor {
                 currentTouch = null;
             }
 
-            moveService.act(hero);
-            moveService.moveCameraWithHero(camera, hero, batch);
 
             hero.setBoundRectangle((int) hero.getX(), (int) hero.getY(), (int) hero.getWidth(), (int) hero.getHeight());
             if (collisionService.isHeroCollide(hero, walls)) {
@@ -122,12 +120,15 @@ public class GameManager extends Stage implements InputProcessor {
                     if (collision.direction == CollisionService.DIRECTION.DOWN) {
                         hero.setState(Hero.State.Standing);
                     } else if (collision.direction == CollisionService.DIRECTION.RIGHT) {
+                        hero.setCurrentSprite(Hero.heroSprites[0]);
                         hero.setSpeed(0);
                     }
                 }
             } else {
                 collision = null;
             }
+            moveService.act(hero);
+            moveService.moveCameraWithHero(camera, hero, batch);
 
             for (int i = 0; i < saws.length; i++) {
                 if (collisionService.isHeroCollide(hero, saws[i])) {
