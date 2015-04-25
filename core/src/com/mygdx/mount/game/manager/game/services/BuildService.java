@@ -4,13 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.mygdx.mount.game.actors.Saw;
 import com.mygdx.mount.game.actors.Wall;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mygdx.mount.game.models.Configuration;
+import com.mygdx.mount.game.models.SawConfiguration;
 
 /**
  * Created by wannabe on 24.04.15.
@@ -42,4 +45,26 @@ public class BuildService {
         }
         return null;
     }
+
+    public static Saw[] getSaws() {
+        SawConfiguration[] configurations = getSawConfigurations();
+        Saw[] saws = new Saw[configurations.length];
+        for (int i = 0; i < saws.length; i++) {
+            saws[i] = new Saw(configurations[i]);
+        }
+        return saws;
+    }
+
+    private static SawConfiguration[] getSawConfigurations() {
+        try {
+            return objectMapper.readValue(Gdx.files.internal("configurations/enemies.json").readString(),
+                    new TypeReference<SawConfiguration[]>() {
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }

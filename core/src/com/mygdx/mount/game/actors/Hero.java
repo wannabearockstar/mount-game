@@ -56,6 +56,8 @@ public class Hero extends Actor {
         heroTexture = new Texture(TEXTURE_URL);
         heroSpeed = 200;
         state = State.Standing;
+        setWidth(WIDTH);
+        setHeight(HEIGHT);
     }
 
     public Texture getHeroTexture() {
