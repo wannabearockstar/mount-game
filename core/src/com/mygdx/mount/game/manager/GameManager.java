@@ -19,8 +19,10 @@ import java.util.ArrayList;
 public class GameManager extends Stage implements InputProcessor {
     private static final String CAVE_URL = "sprites/cave-bg.jpg";
     private static final String GROUND_URL = "sprites/wheat-field-bg.jpg";
-    public static final int SCREEN_WIDTH = 2000;
+    private static final String MOUNTAIN_URL = "sprites/olympus-bg.jpg";
+    public static final int SCREEN_WIDTH = 5500;
     public static final int SCREEN_HEIGHT = 900;
+    public static final int REALM_WIDTH = 2000;
     CollisionService.Collision collision;
 
     public static enum GAME_STATE {
@@ -40,6 +42,7 @@ public class GameManager extends Stage implements InputProcessor {
     Hero hero;
     Texture caveTexture;
     Texture groundTexture;
+    Texture mountainTexture;
     Batch batch;
     MoveService moveService;
     Camera camera;
@@ -85,6 +88,7 @@ public class GameManager extends Stage implements InputProcessor {
         hero = new Hero();
         caveTexture = new Texture(CAVE_URL);
         groundTexture = new Texture(GROUND_URL);
+        mountainTexture = new Texture(MOUNTAIN_URL);
         this.batch = batch;
         saws = BuildService.getSaws();
         state = GAME_STATE.VALID;
@@ -98,8 +102,9 @@ public class GameManager extends Stage implements InputProcessor {
     public void draw() {
         update();
         batch.begin();
-        batch.draw(caveTexture, -500, -200, SCREEN_WIDTH, SCREEN_HEIGHT);
-        batch.draw(groundTexture, SCREEN_WIDTH - 500, -200, SCREEN_WIDTH, SCREEN_HEIGHT);
+        batch.draw(caveTexture, -500, -200, REALM_WIDTH, SCREEN_HEIGHT);
+        batch.draw(groundTexture, REALM_WIDTH - 500, -200, REALM_WIDTH, SCREEN_HEIGHT);
+        batch.draw(mountainTexture, REALM_WIDTH * 2 - 500, -200, REALM_WIDTH, SCREEN_HEIGHT);
         drawService.drawHero(hero, getBatch());
         drawService.drawWallArray(walls, getBatch());
         drawService.drawSaws(saws, batch);
@@ -118,7 +123,7 @@ public class GameManager extends Stage implements InputProcessor {
             hero.setBoundRectangle((int) hero.getX(), (int) hero.getY(), (int) hero.getWidth(), (int) hero.getHeight());
             if (collisionService.isHeroCollide(hero, walls)) {
                 collision = collisionService.getCollisionForHero();
-                System.out.println(collision.block.getClass().toString());
+                ;
                 if (collision != null && (collision.block instanceof Wall || collision.block instanceof BaseBlock)) {
                     if (collision.direction == CollisionService.DIRECTION.DOWN) {
                         hero.setState(Hero.State.Standing);

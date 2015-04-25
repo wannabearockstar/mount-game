@@ -1,12 +1,12 @@
 [
   {
-    "count": 80,
+    "count": 8,
     "x": 0,
     "y": 80,
     "horizontal": true
   },
   {
-    "count": 3,
+    "count": 1,
     "x": 550,
     "y": 0,
     "horizontal": false

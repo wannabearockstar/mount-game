@@ -14,7 +14,7 @@ import com.mygdx.mount.game.manager.GameManager;
 public class GameScreen implements Screen {
     MountGame game;
     SpriteBatch batch;
-    public static final int CAMERA_WIDTH = 640;
+    public static final int CAMERA_WIDTH = 840;
     GameManager manager;
 
     public GameScreen(MountGame game) {
