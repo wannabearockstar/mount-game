@@ -151,7 +151,7 @@ public class GameManager extends Stage implements InputProcessor {
             }
 
             for (Shooter shooter : shooters) {
-                if (shooter.bullets.isEmpty() || (shooter.getLastBullet() != null && Math.abs(shooter.getLastBullet().getX() - shooter.getX()) > shooter.getStep())) {
+                if (shooter.bullets.isEmpty() || shooter.isLastBulletValid()) {
                     shooter.spawnBullet();
                 }
                 shooter.moveBullets();

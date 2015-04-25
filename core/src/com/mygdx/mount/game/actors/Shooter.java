@@ -72,10 +72,13 @@ public class Shooter extends Boundable {
         Bullet bullet = new Bullet();
         if (this.direction == DIRECTION.UP) {
             bullet.setY(this.getY() + speed);
+            bullet.setX(getX());
         } else if (this.direction == DIRECTION.DOWN) {
             bullet.setY(this.getY() - speed);
+            bullet.setX(getX());
         } else if (this.direction == DIRECTION.RIGHT) {
             bullet.setX(this.getX() + speed);
+            bullet.setY(getY());
         } else {
             bullet.setX(this.getX() - speed);
             bullet.setY(getY());
@@ -91,5 +94,16 @@ public class Shooter extends Boundable {
 
     public int getStep() {
         return step;
+    }
+
+    public boolean isLastBulletValid() {
+        if (getLastBullet() == null) {
+            return false;
+        }
+        if (this.direction == DIRECTION.UP || this.direction == DIRECTION.DOWN) {
+            return Math.abs(getLastBullet().getY() - getY()) > getStep();
+        } else {
+            return Math.abs(getLastBullet().getX() - getX()) > getStep();
+        }
     }
 }
