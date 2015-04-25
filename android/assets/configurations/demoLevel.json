@@ -2,19 +2,13 @@
   {
     "count": 8,
     "x": 0,
-    "y": 80,
+    "y": 30,
     "horizontal": true
   },
   {
-    "count": 2,
+    "count": 5,
     "x": 550,
-    "y": 0,
-    "horizontal": false
-  },
-  {
-    "count": 9,
-    "x": 900,
-    "y": 0,
-    "horizontal": false
+    "y": 90,
+    "horizontal": true
   }
 ]
