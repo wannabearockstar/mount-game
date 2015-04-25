@@ -1,0 +1,10 @@
+[
+  {
+    "x": 400,
+    "y": 10,
+    "directionHolder": "LEFT",
+    "speed": 3,
+    "range": 100,
+    "step": 120
+  }
+]

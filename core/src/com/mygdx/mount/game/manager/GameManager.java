@@ -78,6 +78,8 @@ public class GameManager extends Stage implements InputProcessor {
 
     ArrayList<Wall> walls;
     Saw[] saws;
+    Shooter[] shooters;
+    ArrayList<Bullet> bullets;
 
     public GameManager(Viewport viewport, Batch batch) {
         super(viewport, batch);
@@ -96,6 +98,7 @@ public class GameManager extends Stage implements InputProcessor {
         walls.addAll(BuildService.createMap(BuildService.generateConfigurations("configurations/groundLevel.json"), new GroundBlock()));
         camera = getCamera();
         collisionService = new CollisionService();
+        shooters = BuildService.getShooters();
     }
 
     @Override
@@ -108,6 +111,7 @@ public class GameManager extends Stage implements InputProcessor {
         drawService.drawHero(hero, getBatch());
         drawService.drawWallArray(walls, getBatch());
         drawService.drawSaws(saws, batch);
+        drawService.drawShooters(shooters, getBatch());
         batch.end();
     }
 
@@ -145,6 +149,13 @@ public class GameManager extends Stage implements InputProcessor {
                     state = GAME_STATE.INVALID;
                 }
                 saws[i].rotate(90 * Gdx.graphics.getDeltaTime());
+            }
+
+            for (Shooter shooter : shooters) {
+                if (shooter.bullets.isEmpty() || (shooter.getLastBullet() != null && Math.abs(shooter.getLastBullet().getX() - shooter.getX()) > shooter.getStep())) {
+                    shooter.spawnBullet();
+                }
+                shooter.moveBullets();
             }
         }
     }

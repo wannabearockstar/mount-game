@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.mygdx.mount.game.actors.BaseBlock;
 import com.mygdx.mount.game.actors.Saw;
+import com.mygdx.mount.game.actors.Shooter;
 import com.mygdx.mount.game.actors.Wall;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mygdx.mount.game.models.Configuration;
 import com.mygdx.mount.game.models.SawConfiguration;
+import com.mygdx.mount.game.models.ShooterConfigurator;
 
 /**
  * Created by wannabe on 24.04.15.
@@ -67,5 +69,23 @@ public class BuildService {
         return null;
     }
 
+    public static Shooter[] getShooters() {
+        ShooterConfigurator[] configurations = getShooterConfigurator();
+        Shooter[] shooters = new Shooter[configurations.length];
+        for (int i = 0; i < shooters.length; i++) {
+            shooters[i] = new Shooter(configurations[i]);
+        }
+        return shooters;
+    }
 
+    private static ShooterConfigurator[] getShooterConfigurator() {
+        try {
+            return objectMapper.readValue(Gdx.files.internal("configurations/shooters.json").readString(),
+                    new TypeReference<ShooterConfigurator[]>() {
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

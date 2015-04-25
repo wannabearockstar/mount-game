@@ -34,4 +34,13 @@ public class DrawService {
             drawWall(wall, batch);
         }
     }
+
+    public void drawShooters(Shooter[] shooters, Batch batch) {
+        for (Shooter shooter : shooters) {
+            batch.draw(shooter.getBlockTexture(), shooter.getX(), shooter.getY(), shooter.getWidth(), shooter.getHeight());
+            for (Bullet bullet : shooter.bullets) {
+                batch.draw(bullet.getBlockTexture(), bullet.getX(), bullet.getY(), bullet.getWidth(), bullet.getHeight());
+            }
+        }
+    }
 }
