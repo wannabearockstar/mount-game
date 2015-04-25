@@ -10,10 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.mount.game.actors.Hero;
 import com.mygdx.mount.game.actors.Wall;
-import com.mygdx.mount.game.manager.game.services.BuildService;
-import com.mygdx.mount.game.manager.game.services.DrawService;
-import com.mygdx.mount.game.manager.game.services.MoveService;
-import com.mygdx.mount.game.manager.game.services.TouchService;
+import com.mygdx.mount.game.manager.game.services.*;
 
 import java.util.ArrayList;
 
@@ -40,6 +37,7 @@ public class GameManager extends Stage implements InputProcessor {
     Batch batch;
     MoveService moveService;
     Camera camera;
+    CollisionService collisionService;
 
     public TouchService.REALM getCurrentTouch() {
         return currentTouch;
@@ -63,6 +61,7 @@ public class GameManager extends Stage implements InputProcessor {
         this.batch = batch;
         walls = BuildService.createMap(BuildService.generateConfigurations());
         camera = getCamera();
+        collisionService = new CollisionService();
     }
 
     @Override
@@ -81,11 +80,13 @@ public class GameManager extends Stage implements InputProcessor {
         } else {
             currentTouch = null;
         }
-
-        if (currentTouch != null) {
-            System.out.println(currentTouch.name());
-        }
         moveService.act(hero);
         moveService.moveCameraWithHero(camera, hero, batch);
+
+        hero.setBoundRectangle((int) hero.getX(), (int) hero.getY(), (int) hero.getWidth(), (int) hero.getHeight());
+        if (collisionService.isHeroCollide(hero, walls)) {
+            System.out.println(collisionService.getCollisionForHero().direction.toString());
+        }
+        ;
     }
 }

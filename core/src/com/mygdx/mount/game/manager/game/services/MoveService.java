@@ -22,7 +22,6 @@ public class MoveService {
         isAccelerated = true;
         delta = Gdx.graphics.getDeltaTime();
         TouchService.REALM currentTouch = manager.getCurrentTouch();
-        System.out.println(currentTouch);
         if (currentTouch != null) {
             if (currentTouch.equals(TouchService.REALM.LEFT)) {
                 isAccelerated = false;
@@ -57,9 +56,7 @@ public class MoveService {
 
     private static void slow(Hero hero, float delta) {
         if (hero.getSpeed() > 0) {
-            System.out.println("speed: " + hero.getSpeed());
             hero.setSpeed(hero.getSpeed() - (Hero.SLOW_CONSTANT * delta * 3));
-            System.out.println("speed: " + hero.getSpeed());
         }
         if (hero.getSpeed() < 0) {
             hero.setSpeed(0);
