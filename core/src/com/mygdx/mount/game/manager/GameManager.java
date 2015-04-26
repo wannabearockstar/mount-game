@@ -23,6 +23,7 @@ public class GameManager extends Stage implements InputProcessor {
     public static final int SCREEN_WIDTH = 5500;
     public static final int SCREEN_HEIGHT = 900;
     public static final int REALM_WIDTH = 2000;
+    public static final int REALM_OFFSET = -500;
     CollisionService.Collision collision;
 
     public static enum GAME_STATE {
@@ -106,9 +107,9 @@ public class GameManager extends Stage implements InputProcessor {
     public void draw() {
         update();
         batch.begin();
-        batch.draw(caveTexture, -500, -200, REALM_WIDTH, SCREEN_HEIGHT);
-        batch.draw(groundTexture, REALM_WIDTH - 500, -200, REALM_WIDTH, SCREEN_HEIGHT);
-        batch.draw(mountainTexture, REALM_WIDTH * 2 - 500, -200, REALM_WIDTH, SCREEN_HEIGHT);
+        batch.draw(caveTexture, REALM_OFFSET, -200, REALM_WIDTH, SCREEN_HEIGHT);
+        batch.draw(groundTexture, REALM_WIDTH + REALM_OFFSET, -200, REALM_WIDTH, SCREEN_HEIGHT);
+        batch.draw(mountainTexture, REALM_WIDTH * 2 + REALM_OFFSET, -200, REALM_WIDTH, SCREEN_HEIGHT);
         drawService.drawHero(hero, getBatch());
         drawService.drawWallArray(walls, getBatch());
         drawService.drawSaws(saws, batch);
