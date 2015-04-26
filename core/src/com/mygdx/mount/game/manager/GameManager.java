@@ -108,7 +108,7 @@ public class GameManager extends Stage implements InputProcessor {
         touchService = new TouchService();
         moveService = new MoveService(this);
         hero = new Hero();
-        hero.setX(-300);
+        hero.setX(3300);
         caveTexture = new Texture(CAVE_URL);
         groundTexture = new Texture(GROUND_URL);
         mountainTexture = new Texture(MOUNTAIN_URL);
@@ -165,7 +165,6 @@ public class GameManager extends Stage implements InputProcessor {
                         hero.currentJumpSpeed = Hero.JUMP_MAX_HEIGHT;
                         hero.heroJumpHeight = 0;
                     } else if (collision.direction == CollisionService.DIRECTION.RIGHT) {
-                        hero.setCurrentSprite(Hero.heroSprites[0]);
                         hero.setSpeed(0);
                     }
                 }

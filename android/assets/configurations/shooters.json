@@ -12,7 +12,7 @@
     "y": 300,
     "directionHolder": "DOWN",
     "speed": 2,
-    "range": 5,
+    "range": 300,
     "step": 300
   },
   {
