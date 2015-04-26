@@ -180,12 +180,10 @@ public class GameManager extends Stage implements InputProcessor {
                 if (hero.activateConsumable()) {
                     hero.setPowered(true);
                     hero.poweredTime = System.currentTimeMillis() / 1000L;
-                    System.out.println("Here we go");
                 }
             }
             if (hero.isPowered() && System.currentTimeMillis() / 1000L > hero.poweredTime + Hero.POWERED_SECONDS_TIME) {
                 hero.setPowered(false);
-                System.out.println("Its over =(");
             }
         }
     }

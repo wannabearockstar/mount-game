@@ -48,7 +48,7 @@ public class DrawService {
     }
 
     public void drawStats(GameManager manager) {
-        manager.font.draw(manager.batch, "Distance: " + (int)manager.hero.getX(), manager.camera.position.x - GameScreen.CAMERA_WIDTH / 2, (GameScreen.CAMERA_HEIGHT - 30));
+        manager.font.draw(manager.batch, "Distance: " + (int) manager.hero.getX(), manager.camera.position.x - GameScreen.CAMERA_WIDTH / 2, (GameScreen.CAMERA_HEIGHT - 30));
     }
 
     public void drawConsumables(Consumable[] consumables, Batch batch) {
