@@ -47,7 +47,7 @@ public class MoveService {
         }
         hero.setX(hero.getX() + distance);
 
-        if (!manager.getCollisionService().isHeroCollide(hero, manager.getWalls()) && hero.getState().equals(Hero.State.Standing)) {
+        if (hero.getState().equals(Hero.State.Standing)) {
             hero.coveredDistance += distance;
             if (hero.coveredDistance > Hero.STEP_SIZE) {
                 hero.runSpriteNumber = ((hero.runSpriteNumber) % 4) + 1;
@@ -89,6 +89,7 @@ public class MoveService {
 
     private static void updateHero(Hero hero, float delta, GameManager manager) {
         if (hero.getState().equals(Hero.State.Standing)) {
+            System.out.println("Standing");
             if ((!manager.getCollisionService().isHeroCollide(hero, manager.getWalls())) && hero.getY() > 5) {
                 hero.currentJumpSpeed = 0;
                 hero.setState(Hero.State.Descending);
@@ -112,6 +113,7 @@ public class MoveService {
             }
         }
         if (hero.getState().equals(Hero.State.Descending)) {
+            System.out.println("Descenging");
             hero.setCurrentSprite(Hero.heroSprites[5]);
             float distance = (hero.currentJumpSpeed * delta * (hero.currentJumpSpeed / 60));
             hero.setHeroJumpHeight(hero.getHeroJumpHeight() - distance);

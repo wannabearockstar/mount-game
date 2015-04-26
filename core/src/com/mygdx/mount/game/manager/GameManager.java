@@ -93,7 +93,7 @@ public class GameManager extends Stage implements InputProcessor {
         touchService = new TouchService();
         moveService = new MoveService(this);
         hero = new Hero();
-        hero.setX(-300);
+        hero.setX(3300);
         caveTexture = new Texture(CAVE_URL);
         groundTexture = new Texture(GROUND_URL);
         mountainTexture = new Texture(MOUNTAIN_URL);
