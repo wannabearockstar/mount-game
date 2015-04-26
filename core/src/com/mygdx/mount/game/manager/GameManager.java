@@ -2,6 +2,7 @@ package com.mygdx.mount.game.manager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -58,6 +59,12 @@ public class GameManager extends Stage implements InputProcessor {
     MoveService moveService;
     public Camera camera;
     Texture pauseTexture;
+
+    public static Sound jumpSound = Gdx.audio.newSound(Gdx.files.internal("sounds/jump.wav"));
+    public static Sound pickupSound = Gdx.audio.newSound(Gdx.files.internal("sounds/pick-up.wav"));
+    public static Sound shotSound = Gdx.audio.newSound(Gdx.files.internal("sounds/shot.mp3"));
+    public static Sound bonusSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bonus.wav"));
+    public static Sound looseSound = Gdx.audio.newSound(Gdx.files.internal("sounds/loose.wav"));
 
     public CollisionService getCollisionService() {
         return collisionService;
@@ -138,18 +145,19 @@ public class GameManager extends Stage implements InputProcessor {
     }
 
     public void update() {
-//        if (state.equals(GAME_STATE.PAUSE)) {
-//            if (currentTouch != null && currentTouch.equals(TouchService.REALM.PAUSE)) {
-//                state = GAME_STATE.VALID;
-//            }
-//        }
-        if (state.equals(GAME_STATE.VALID)) {
-            if (Gdx.input.isTouched()) {
-                currentTouch = TouchService.getRealmByTouch(camera);
-            } else {
-                currentTouch = null;
-            }
+        if (Gdx.input.isTouched()) {
+            currentTouch = TouchService.getRealmByTouch(camera);
+        } else {
+            currentTouch = null;
+        }
 
+        if (state.equals(GAME_STATE.PAUSE)) {
+            if (currentTouch != null && currentTouch.equals(TouchService.REALM.PAUSE)) {
+                state = GAME_STATE.VALID;
+            }
+            return;
+        }
+        if (state.equals(GAME_STATE.VALID)) {
             if (currentTouch != null && currentTouch.equals(TouchService.REALM.PAUSE)) {
                 state = GAME_STATE.PAUSE;
             }
@@ -176,6 +184,8 @@ public class GameManager extends Stage implements InputProcessor {
             for (int i = 0; i < saws.length; i++) {
                 if (collisionService.isHeroCollide(hero, saws[i])) {
                     state = GAME_STATE.INVALID;
+                    looseSound.play();
+                    break;
                 }
                 saws[i].rotate(180 * Gdx.graphics.getDeltaTime());
             }
@@ -188,11 +198,13 @@ public class GameManager extends Stage implements InputProcessor {
             }
             if (collisionService.isHeroGetShot(hero, shooters)) {
                 state = GAME_STATE.INVALID;
+                looseSound.play();
             }
 
             if (collisionService.isHeroCollide(hero, consumables)) {
                 collision = collisionService.getCollisionForHero();
                 if (collision != null && collision.block instanceof Consumable && collision.block.isExist) {
+                    pickupSound.play();
                     hero.addConsumable(collision.block);
                     System.out.println(hero.getConsumables().size());
                     collision.block.isExist = false;
@@ -201,6 +213,7 @@ public class GameManager extends Stage implements InputProcessor {
 
             if (currentTouch != null && currentTouch.equals(TouchService.REALM.RIGHT_LOWER) && !hero.isPowered()) {
                 if (hero.activateConsumable()) {
+                    bonusSound.play();
                     hero.setPowered(true);
                     hero.poweredTime = System.currentTimeMillis() / 1000L;
                 }

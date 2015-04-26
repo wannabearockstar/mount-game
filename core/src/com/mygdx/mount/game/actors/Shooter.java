@@ -2,6 +2,7 @@ package com.mygdx.mount.game.actors;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.mount.game.manager.GameManager;
 import com.mygdx.mount.game.models.SawConfiguration;
 import com.mygdx.mount.game.models.ShooterConfigurator;
 
@@ -85,6 +86,7 @@ public class Shooter extends Boundable {
         }
         bullet.setBoundRectangle((int) bullet.getX(), (int) bullet.getY(), (int) bullet.getWidth(), (int) bullet.getHeight());
         this.bullets.add(bullet);
+        GameManager.shotSound.play(0.1f);
         return bullet;
     }
 
