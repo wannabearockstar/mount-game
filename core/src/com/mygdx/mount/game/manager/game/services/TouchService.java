@@ -25,9 +25,9 @@ public class TouchService {
             if (Gdx.input.getY() < Gdx.graphics.getHeight() / 2) {
                 return REALM.RIGHT_UPPER;
             }
-            if (Gdx.input.getY() > GameScreen.CAMERA_HEIGHT - GameManager.Pause.HEIGHT && Gdx.input.getX() > camera.position.x + GameScreen.CAMERA_WIDTH / 2 + GameManager.Pause.OFFSET) {
+            /*if (Gdx.input.getY() > GameScreen.CAMERA_HEIGHT - GameManager.Pause.HEIGHT && Gdx.input.getX() > camera.position.x + GameScreen.CAMERA_WIDTH / 2 + GameManager.Pause.OFFSET) {
                     return REALM.PAUSE;
-            }
+            }*/
             return REALM.RIGHT_LOWER;
         }
     }
