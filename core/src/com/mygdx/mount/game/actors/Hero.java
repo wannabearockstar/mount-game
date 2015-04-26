@@ -19,7 +19,7 @@ public class Hero extends Boundable {
     public final static float SLOW_CONSTANT = 50;
     public final static float JUMP_MAX_HEIGHT = 100;
     public final static float JUMP_MULTIPLICAND = 2f;
-    public final static int STEP_SIZE = 50;
+    public final static int STEP_SIZE = 30;
     public final static int POWERED_SECONDS_TIME = 10;
 
 

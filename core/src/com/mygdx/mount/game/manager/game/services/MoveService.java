@@ -8,6 +8,8 @@ import com.mygdx.mount.MountGame;
 import com.mygdx.mount.game.actors.Hero;
 import com.mygdx.mount.game.manager.GameManager;
 
+import java.time.Year;
+
 
 public class MoveService {
     GameManager manager;
@@ -36,7 +38,6 @@ public class MoveService {
         }
         updateHero(hero, delta, manager);
         moveRight(hero, delta, isAccelerated, manager);
-
     }
 
     private static void moveRight(Hero hero, float delta, boolean isAccelerated, GameManager manager) {
@@ -46,14 +47,14 @@ public class MoveService {
         }
         hero.setX(hero.getX() + distance);
 
-        /*if (!manager.getCollisionService().isHeroCollide(hero, manager.getWalls())) {
+        if (!manager.getCollisionService().isHeroCollide(hero, manager.getWalls()) && hero.getState().equals(Hero.State.Standing)) {
             hero.coveredDistance += distance;
             if (hero.coveredDistance > Hero.STEP_SIZE) {
-                hero.runSpriteNumber = ((hero.runSpriteNumber) % 5) + 1;
+                hero.runSpriteNumber = ((hero.runSpriteNumber) % 4) + 1;
                 hero.setCurrentSprite(Hero.heroSprites[hero.runSpriteNumber]);
                 hero.coveredDistance = 0;
             }
-        }*/
+        }
 
 
         if (!isAccelerated) {
@@ -88,12 +89,11 @@ public class MoveService {
 
     private static void updateHero(Hero hero, float delta, GameManager manager) {
         if (hero.getState().equals(Hero.State.Standing)) {
-            if (!manager.getCollisionService().isHeroCollide(hero, manager.getWalls())) {
+            if ((!manager.getCollisionService().isHeroCollide(hero, manager.getWalls())) && hero.getY() > 5) {
                 hero.currentJumpSpeed = 0;
                 hero.setState(Hero.State.Descending);
                 hero.setHeroJumpHeight(0);
             }
-            hero.setCurrentSprite(Hero.heroSprites[4]);
         }
         if (hero.getState().equals(Hero.State.Ascending)) {
             hero.setCurrentSprite(Hero.heroSprites[6]);
