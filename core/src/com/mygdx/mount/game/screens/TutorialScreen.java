@@ -86,7 +86,7 @@ public class TutorialScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        game.setScreen(new StartScreen(game));
+        game.setScreen(new GameScreen(game));
         return false;
     }
 
