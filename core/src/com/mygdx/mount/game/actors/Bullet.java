@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by wannabe on 25.04.15.
  */
 public class Bullet extends Boundable {
-    private final static String TEXTURE_URL = "sprites/wall.png";
+    private final static String TEXTURE_URL = "sprites/bullet.png";
     public final static int WIDTH = 15;
     public final static int HEIGHT = 15;
     protected Texture blockTexture;
