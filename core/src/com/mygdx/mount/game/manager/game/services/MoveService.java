@@ -76,7 +76,7 @@ public class MoveService {
 
     private static void jump(Hero hero) {
         if (hero.getState().equals(Hero.State.Standing)) {
-            GameManager.jumpSound.play();
+            GameManager.jumpSound.play(1f);
             hero.setState(Hero.State.Ascending);
             hero.currentJumpSpeed = 200;
             hero.setHeroJumpHeight(0);

@@ -63,7 +63,6 @@ public class GameManager extends Stage implements InputProcessor {
 
     public static Sound jumpSound = Gdx.audio.newSound(Gdx.files.internal("sounds/jump.wav"));
     public static Sound pickupSound = Gdx.audio.newSound(Gdx.files.internal("sounds/pick-up.wav"));
-    public static Sound shotSound = Gdx.audio.newSound(Gdx.files.internal("sounds/shot.mp3"));
     public static Sound bonusSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bonus.wav"));
     public static Sound looseSound = Gdx.audio.newSound(Gdx.files.internal("sounds/loose.wav"));
 
@@ -152,13 +151,6 @@ public class GameManager extends Stage implements InputProcessor {
         } else {
             currentTouch = null;
         }
-
-        if (state.equals(GAME_STATE.PAUSE)) {
-            if (currentTouch != null && currentTouch.equals(TouchService.REALM.PAUSE)) {
-                state = GAME_STATE.VALID;
-            }
-            return;
-        }
         if (state.equals(GAME_STATE.VALID)) {
             if (currentTouch != null && currentTouch.equals(TouchService.REALM.PAUSE)) {
                 state = GAME_STATE.PAUSE;
@@ -186,7 +178,7 @@ public class GameManager extends Stage implements InputProcessor {
             for (int i = 0; i < saws.length; i++) {
                 if (collisionService.isHeroCollide(hero, saws[i])) {
                     state = GAME_STATE.INVALID;
-                    looseSound.play();
+                    looseSound.play(1f);
                     break;
                 }
                 saws[i].rotate(180 * Gdx.graphics.getDeltaTime());
@@ -200,7 +192,7 @@ public class GameManager extends Stage implements InputProcessor {
             }
             if (collisionService.isHeroGetShot(hero, shooters)) {
                 state = GAME_STATE.INVALID;
-                looseSound.play();
+                looseSound.play(1f);
             }
 
             if (collisionService.isHeroCollide(hero, consumables)) {
@@ -215,7 +207,7 @@ public class GameManager extends Stage implements InputProcessor {
 
             if (currentTouch != null && currentTouch.equals(TouchService.REALM.RIGHT_LOWER) && !hero.isPowered()) {
                 if (hero.activateConsumable()) {
-                    bonusSound.play();
+                    bonusSound.play(1f);
                     hero.setPowered(true);
                     hero.poweredTime = System.currentTimeMillis() / 1000L;
                 }

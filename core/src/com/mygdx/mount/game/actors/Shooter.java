@@ -101,7 +101,6 @@ public class Shooter extends Boundable {
         }
         bullet.setBoundRectangle((int) bullet.getX(), (int) bullet.getY(), (int) bullet.getWidth(), (int) bullet.getHeight());
         this.bullets.add(bullet);
-        GameManager.shotSound.play(0.1f);
         return bullet;
     }
 
