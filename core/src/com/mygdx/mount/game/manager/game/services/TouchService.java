@@ -11,13 +11,13 @@ import com.mygdx.mount.game.screens.GameScreen;
 public class TouchService {
 
     public static enum REALM {
-        LEFT, RIGHT_UPPER, RIGHT_LOWER, PAUSE
+        LEFT, RIGHT_UPPER, RIGHT_LOWER, PAUSE, RESUME
     }
 
     /**
      * @return REALM
      */
-    public static REALM getRealmByTouch(Camera camera) {
+    public static REALM getRealmByTouch(Camera camera, GameManager manager) {
 
         if (Gdx.input.getX() < Gdx.graphics.getWidth() / 2) {
             return REALM.LEFT;
@@ -26,7 +26,7 @@ public class TouchService {
                 return REALM.RIGHT_UPPER;
             }
             if (Gdx.input.getY() > GameScreen.CAMERA_HEIGHT - GameManager.Pause.HEIGHT && Gdx.input.getX() > camera.position.x + GameScreen.CAMERA_WIDTH / 2 + GameManager.Pause.OFFSET) {
-                return REALM.PAUSE;
+                    return REALM.PAUSE;
             }
             return REALM.RIGHT_LOWER;
         }

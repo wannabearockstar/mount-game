@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.mount.game.ScreenshotFactory;
 import com.mygdx.mount.game.actors.*;
 import com.mygdx.mount.game.manager.game.services.*;
 import com.mygdx.mount.game.screens.GameScreen;
@@ -27,6 +28,7 @@ public class GameManager extends Stage implements InputProcessor {
     public static final int SCREEN_HEIGHT = 900;
     public static final int REALM_WIDTH = 2500;
     public static final int REALM_OFFSET = -500;
+
     public Texture cannonTexture;
     CollisionService.Collision collision;
     public BitmapFont font;
@@ -61,6 +63,8 @@ public class GameManager extends Stage implements InputProcessor {
     public Camera camera;
     Texture pauseTexture;
 
+    public boolean onPause;
+
     public static Sound jumpSound = Gdx.audio.newSound(Gdx.files.internal("sounds/jump.wav"));
     public static Sound pickupSound = Gdx.audio.newSound(Gdx.files.internal("sounds/pick-up.wav"));
     public static Sound bonusSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bonus.wav"));
@@ -75,7 +79,7 @@ public class GameManager extends Stage implements InputProcessor {
     }
 
     CollisionService collisionService;
-    GAME_STATE state;
+    public GAME_STATE state;
 
     public TouchService.REALM getCurrentTouch() {
         return currentTouch;
@@ -147,9 +151,15 @@ public class GameManager extends Stage implements InputProcessor {
 
     public void update() {
         if (Gdx.input.isTouched()) {
-            currentTouch = TouchService.getRealmByTouch(camera);
+            currentTouch = TouchService.getRealmByTouch(camera, this);
         } else {
             currentTouch = null;
+        }
+        if (currentTouch != null && currentTouch.equals(TouchService.REALM.PAUSE)) {
+            state = GAME_STATE.PAUSE;
+        }
+        if(state.equals(GAME_STATE.PAUSE)){
+            return ;
         }
         if (state.equals(GAME_STATE.VALID)) {
             if (currentTouch != null && currentTouch.equals(TouchService.REALM.PAUSE)) {
