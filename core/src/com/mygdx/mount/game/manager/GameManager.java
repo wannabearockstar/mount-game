@@ -170,7 +170,7 @@ public class GameManager extends Stage implements InputProcessor {
             if (collisionService.isHeroCollide(hero, consumables)) {
                 collision = collisionService.getCollisionForHero();
                 if (collision != null && collision.block instanceof Consumable && collision.block.isExist) {
-                    hero.getConsumables().add(collision.block);
+                    hero.addConsumable(collision.block);
                     System.out.println(hero.getConsumables().size());
                     collision.block.isExist = false;
                 }

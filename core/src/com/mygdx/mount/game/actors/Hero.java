@@ -26,7 +26,7 @@ public class Hero extends Boundable {
     public long poweredTime = 0;
     protected boolean powered = false;
 
-    protected ArrayList<Boundable> consumables = new ArrayList<Boundable>();
+    protected ArrayList<Consumable> consumables = new ArrayList<Consumable>();
     public State getState() {
         return state;
     }
@@ -122,8 +122,21 @@ public class Hero extends Boundable {
         return currentSprite;
     }
 
-    public ArrayList<Boundable> getConsumables() {
+    public ArrayList<Consumable> getConsumables() {
         return consumables;
+    }
+
+    public Hero addConsumable(Boundable boundable) {
+        Consumable consumable = new Consumable();
+        consumable.setX(boundable.getX());
+        consumable.setY(boundable.getY());
+        consumable.setWidth(boundable.getWidth());
+        consumable.setHeight(boundable.getHeight());
+        consumable.setBoundRectangle((int) boundable.getBounds().getX(), (int) boundable.getBounds().getY(), (int) boundable.getBounds().getWidth(), (int) boundable.getBounds().getHeight());
+
+        consumables.add(consumable);
+
+        return this;
     }
 
     public boolean activateConsumable() {

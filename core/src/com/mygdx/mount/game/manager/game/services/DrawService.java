@@ -48,7 +48,9 @@ public class DrawService {
     }
 
     public void drawStats(GameManager manager) {
-        manager.font.draw(manager.batch, "Distance: " + (int) manager.hero.getX(), manager.camera.position.x - GameScreen.CAMERA_WIDTH / 2, (GameScreen.CAMERA_HEIGHT - 30));
+        manager.font.draw(manager.batch, "Distance: " + (int) manager.hero.getX() / 100, manager.camera.position.x - GameScreen.CAMERA_WIDTH / 2, (GameScreen.CAMERA_HEIGHT - 30));
+        manager.font.draw(manager.batch, "Consumables: ", manager.camera.position.x + GameScreen.CAMERA_WIDTH / 2 - manager.hero.getConsumables().size() * Consumable.WIDTH - 100, (GameScreen.CAMERA_HEIGHT - 30));
+        drawHeroConsumables(manager);
     }
 
     public void drawConsumables(Consumable[] consumables, Batch batch) {
@@ -56,6 +58,12 @@ public class DrawService {
             if (consumable.isExist) {
                 batch.draw(consumable.getBlockTexture(), consumable.getX(), consumable.getY(), consumable.getWidth(), consumable.getHeight());
             }
+        }
+    }
+
+    public void drawHeroConsumables(GameManager manager) {
+        for (int i = 0; i < manager.hero.getConsumables().size(); i++) {
+            manager.batch.draw(manager.hero.getConsumables().get(i).getBlockTexture(), manager.camera.position.x + GameScreen.CAMERA_WIDTH / 2 - i * Consumable.WIDTH - 30, GameScreen.CAMERA_HEIGHT - 50, Consumable.WIDTH, Consumable.HEIGHT);
         }
     }
 }
