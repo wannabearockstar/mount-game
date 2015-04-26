@@ -24,9 +24,9 @@
           "step": 300
   },
   {
-            "x": 4600,
+            "x": 4700,
             "y": 0,
-            "directionHolder": "TOP",
+            "directionHolder": "UP",
             "speed": 2,
             "range": 300,
             "step": 300
