@@ -72,6 +72,6 @@ public class DrawService {
     }
 
     public void drawHeroPoweredCountdown(GameManager manager) {
-        manager.font.draw(manager.batch, "Super jump countdown: " + (manager.hero.poweredTime + manager.hero.POWERED_SECONDS_TIME - (System.currentTimeMillis() / 1000L)), manager.camera.position.x - GameScreen.CAMERA_WIDTH / 2, 0);
+        manager.font.draw(manager.batch, "Super jump countdown: " + (manager.hero.poweredTime + Hero.POWERED_SECONDS_TIME - (System.currentTimeMillis() / 1000L)), manager.camera.position.x - GameScreen.CAMERA_WIDTH / 2, 0);
     }
 }

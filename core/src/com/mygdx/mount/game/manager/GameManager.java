@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.mount.game.actors.*;
 import com.mygdx.mount.game.manager.game.services.*;
+import com.mygdx.mount.game.screens.GameScreen;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,13 @@ public class GameManager extends Stage implements InputProcessor {
     public static final int REALM_OFFSET = -500;
     CollisionService.Collision collision;
     public BitmapFont font;
+
+    public static class Pause {
+        public static String PAUSE_URL = "sprites/pause.png";
+        public static int WIDTH = 70;
+        public static int HEIGHT = 70;
+        public static int OFFSET = -80;
+    }
 
     public static enum GAME_STATE {
         VALID, INVALID
@@ -49,6 +57,7 @@ public class GameManager extends Stage implements InputProcessor {
     public Batch batch;
     MoveService moveService;
     public Camera camera;
+    Texture pauseTexture;
 
     public CollisionService getCollisionService() {
         return collisionService;
@@ -95,6 +104,7 @@ public class GameManager extends Stage implements InputProcessor {
         caveTexture = new Texture(CAVE_URL);
         groundTexture = new Texture(GROUND_URL);
         mountainTexture = new Texture(MOUNTAIN_URL);
+        pauseTexture = new Texture(Pause.PAUSE_URL);
         this.batch = batch;
         saws = BuildService.getSaws();
         state = GAME_STATE.VALID;
@@ -119,13 +129,14 @@ public class GameManager extends Stage implements InputProcessor {
         drawService.drawShooters(shooters, getBatch());
         drawService.drawStats(this);
         drawService.drawConsumables(consumables, getBatch());
+        batch.draw(pauseTexture, camera.position.x + GameScreen.CAMERA_WIDTH / 2 + Pause.OFFSET, 0, Pause.WIDTH, Pause.HEIGHT);
         batch.end();
     }
 
     public void update() {
         if (state.equals(GAME_STATE.VALID)) {
             if (Gdx.input.isTouched()) {
-                currentTouch = TouchService.getRealmByTouch();
+                currentTouch = TouchService.getRealmByTouch(camera);
             } else {
                 currentTouch = null;
             }
