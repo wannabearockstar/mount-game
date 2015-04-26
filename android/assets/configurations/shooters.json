@@ -1,2 +1,42 @@
 [
+  {
+    "x": 2650,
+    "y": 0,
+    "directionHolder": "LEFT",
+    "speed": 2,
+    "range": 600,
+    "step": 170
+  },
+  {
+      "x": 3300,
+      "y": 300,
+      "directionHolder": "DOWN",
+      "speed": 2,
+      "range": 5,
+      "step": 300
+  },
+  {
+          "x": 3900,
+          "y": 300,
+          "directionHolder": "DOWN",
+          "speed": 2,
+          "range": 300,
+          "step": 300
+  },
+  {
+            "x": 4700,
+            "y": 0,
+            "directionHolder": "UP",
+            "speed": 2,
+            "range": 300,
+            "step": 300
+    },
+    {
+                "x": 5100,
+                "y": 0,
+                "directionHolder": "RIGHT",
+                "speed": 2,
+                "range": 300,
+                "step": 200
+  }
 ]
