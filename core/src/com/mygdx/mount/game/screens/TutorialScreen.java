@@ -23,6 +23,7 @@ public class TutorialScreen implements Screen, InputProcessor {
         batch = new SpriteBatch();
         this.game = game;
         texture = new Texture(TEXTURE_URL);
+        Gdx.input.setInputProcessor(this);
     }
     @Override
     public void show() {

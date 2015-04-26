@@ -85,7 +85,7 @@ public class StartScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if(screenX>Gdx.graphics.getWidth()) {
+        if(screenX>Gdx.graphics.getWidth()/2) {
             game.setScreen(new GameScreen(game));
         }
         else{
