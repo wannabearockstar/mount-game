@@ -37,7 +37,7 @@ public class GameManager extends Stage implements InputProcessor {
     }
 
     public static enum GAME_STATE {
-        VALID, INVALID
+        VALID, PAUSE, INVALID
     }
 
     public TouchService getTouchService() {
@@ -134,6 +134,11 @@ public class GameManager extends Stage implements InputProcessor {
     }
 
     public void update() {
+//        if (state.equals(GAME_STATE.PAUSE)) {
+//            if (currentTouch != null && currentTouch.equals(TouchService.REALM.PAUSE)) {
+//                state = GAME_STATE.VALID;
+//            }
+//        }
         if (state.equals(GAME_STATE.VALID)) {
             if (Gdx.input.isTouched()) {
                 currentTouch = TouchService.getRealmByTouch(camera);
@@ -141,6 +146,9 @@ public class GameManager extends Stage implements InputProcessor {
                 currentTouch = null;
             }
 
+            if (currentTouch != null && currentTouch.equals(TouchService.REALM.PAUSE)) {
+                state = GAME_STATE.PAUSE;
+            }
 
             hero.setBoundRectangle((int) hero.getX(), (int) hero.getY(), (int) hero.getWidth(), (int) hero.getHeight());
             if (collisionService.isHeroCollide(hero, walls)) {
