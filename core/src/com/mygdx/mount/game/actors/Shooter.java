@@ -86,17 +86,17 @@ public class Shooter extends Boundable {
     public Bullet spawnBullet() {
         Bullet bullet = new Bullet();
         if (this.direction == DIRECTION.UP) {
-            bullet.setY(this.getY() + speed);
-            bullet.setX(getX());
+            bullet.setY(this.getY() + speed + getHeight());
+            bullet.setX(getX() + 10 + getWidth() / 2);
         } else if (this.direction == DIRECTION.DOWN) {
             bullet.setY(this.getY() - speed);
-            bullet.setX(getX());
+            bullet.setX(getX() - 10 + getWidth() / 2);
         } else if (this.direction == DIRECTION.RIGHT) {
-            bullet.setX(this.getX() + speed);
-            bullet.setY(getY());
+            bullet.setX(this.getX() + speed + getWidth());
+            bullet.setY(getY() + getHeight() / 2 + 10);
         } else {
             bullet.setX(this.getX() - speed);
-            bullet.setY(getY());
+            bullet.setY(getY() + getHeight() / 2 + 10);
         }
         bullet.setBoundRectangle((int) bullet.getX(), (int) bullet.getY(), (int) bullet.getWidth(), (int) bullet.getHeight());
         this.bullets.add(bullet);
@@ -122,17 +122,17 @@ public class Shooter extends Boundable {
         }
     }
 
-    private int getIndexFromDirection(DIRECTION direction){
-        if(direction.equals(DIRECTION.DOWN)){
+    private int getIndexFromDirection(DIRECTION direction) {
+        if (direction.equals(DIRECTION.DOWN)) {
             return 0;
         }
-        if(direction.equals(DIRECTION.UP)){
+        if (direction.equals(DIRECTION.UP)) {
             return 1;
         }
-        if(direction.equals(DIRECTION.LEFT)){
+        if (direction.equals(DIRECTION.LEFT)) {
             return 2;
         }
-        if(direction.equals(DIRECTION.RIGHT)){
+        if (direction.equals(DIRECTION.RIGHT)) {
             return 3;
         }
         return 1;
