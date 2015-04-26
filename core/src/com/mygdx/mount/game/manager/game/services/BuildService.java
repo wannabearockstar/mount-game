@@ -1,6 +1,7 @@
 package com.mygdx.mount.game.manager.game.services;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -67,11 +68,11 @@ public class BuildService {
         return null;
     }
 
-    public static Shooter[] getShooters() {
+    public static Shooter[] getShooters(Texture texture) {
         ShooterConfigurator[] configurations = getShooterConfigurator();
         Shooter[] shooters = new Shooter[configurations.length];
         for (int i = 0; i < shooters.length; i++) {
-            shooters[i] = new Shooter(configurations[i]);
+            shooters[i] = new Shooter(configurations[i], texture);
         }
         return shooters;
     }

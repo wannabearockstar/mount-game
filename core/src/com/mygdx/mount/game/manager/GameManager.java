@@ -25,6 +25,7 @@ public class GameManager extends Stage implements InputProcessor {
     public static final int SCREEN_HEIGHT = 900;
     public static final int REALM_WIDTH = 2500;
     public static final int REALM_OFFSET = -500;
+    public Texture cannonTexture;
     CollisionService.Collision collision;
     public BitmapFont font;
 
@@ -96,6 +97,7 @@ public class GameManager extends Stage implements InputProcessor {
         caveTexture = new Texture(CAVE_URL);
         groundTexture = new Texture(GROUND_URL);
         mountainTexture = new Texture(MOUNTAIN_URL);
+        cannonTexture = new Texture(Shooter.TEXTURE_URL);
         this.batch = batch;
         saws = BuildService.getSaws();
         state = GAME_STATE.VALID;
@@ -104,7 +106,7 @@ public class GameManager extends Stage implements InputProcessor {
         walls.addAll(BuildService.createMap(BuildService.generateConfigurations("configurations/mountLevel.json"), new MountBlock()));
         camera = getCamera();
         collisionService = new CollisionService();
-        shooters = BuildService.getShooters();
+        shooters = BuildService.getShooters(cannonTexture);
         consumables = BuildService.getConsumables();
     }
 

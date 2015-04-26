@@ -2,6 +2,7 @@ package com.mygdx.mount.game.actors;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.mount.game.models.SawConfiguration;
 import com.mygdx.mount.game.models.ShooterConfigurator;
 
@@ -15,19 +16,33 @@ public class Shooter extends Boundable {
         UP, RIGHT, DOWN, LEFT
     }
 
-    private final static String TEXTURE_URL = "sprites/hero.jpg";
-    public final static int WIDTH = 30;
-    public final static int HEIGHT = 30;
-    protected Texture blockTexture;
+    public static int[] TEXTURE_X = {
+            6,//down
+            63,//up
+            14,//left
+            84//right
+    };
+    public static int[] TEXTURE_Y = {
+            3, 3,
+            76,
+            77
+
+    };
+
+    public final static String TEXTURE_URL = "sprites/cannon.png";
+    public final static int WIDTH = 60;
+    public final static int HEIGHT = 60;
+    protected TextureRegion blockTexture;
     public DIRECTION direction;
     public ArrayList<Bullet> bullets = new ArrayList<Bullet>();
     private int step;
     private int range;
     private int speed;
 
-    public Shooter(DIRECTION direction, int step, int range, int speed) {
+    public Shooter(DIRECTION direction, int step, int range, int speed, Texture texture) {
         super();
-        blockTexture = new Texture(TEXTURE_URL);
+        int i = getIndexFromDirection(direction);
+        blockTexture = new TextureRegion(texture, TEXTURE_X[i], TEXTURE_Y[i], WIDTH, HEIGHT);
         this.direction = direction;
         this.step = step;
         this.range = range;
@@ -36,14 +51,14 @@ public class Shooter extends Boundable {
         setHeight(HEIGHT);
     }
 
-    public Shooter(ShooterConfigurator configuration) {
-        this(configuration.direction, configuration.step, configuration.range, configuration.speed);
+    public Shooter(ShooterConfigurator configuration, Texture texture) {
+        this(configuration.direction, configuration.step, configuration.range, configuration.speed, texture);
         setX(configuration.x);
         setY(configuration.y);
         setBoundRectangle((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
     }
 
-    public Texture getBlockTexture() {
+    public TextureRegion getBlockTexture() {
         return blockTexture;
     }
 
@@ -105,5 +120,21 @@ public class Shooter extends Boundable {
         } else {
             return Math.abs(getLastBullet().getX() - getX()) > getStep();
         }
+    }
+
+    private int getIndexFromDirection(DIRECTION direction){
+        if(direction.equals(DIRECTION.DOWN)){
+            return 0;
+        }
+        if(direction.equals(DIRECTION.UP)){
+            return 1;
+        }
+        if(direction.equals(DIRECTION.LEFT)){
+            return 2;
+        }
+        if(direction.equals(DIRECTION.RIGHT)){
+            return 3;
+        }
+        return 1;
     }
 }
