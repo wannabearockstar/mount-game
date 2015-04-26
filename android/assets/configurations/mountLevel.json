@@ -1,4 +1,5 @@
-[{
+[
+  {
     "count": 2,
     "x": 3600,
     "y": 0,
@@ -29,16 +30,15 @@
     "horizontal": true
   },
   {
-    "count":1,
+    "count": 1,
     "x": 5450,
-    "y":0,
-    "horizontal":false
+    "y": 0,
+    "horizontal": false
   },
   {
-      "count":15,
-      "x": 5800,
-      "y":60,
-      "horizontal":true
-    }
-
+    "count": 15,
+    "x": 5800,
+    "y": 60,
+    "horizontal": true
+  }
 ]
