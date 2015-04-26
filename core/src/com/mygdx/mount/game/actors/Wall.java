@@ -47,11 +47,13 @@ public class Wall extends Boundable {
     public static Wall buildHorizontal(int count, int x, int y, BaseBlock type) {
         Wall wall = new Wall(count, x, y, true);
         for (int i = 0; i < count; i++) {
-            BaseBlock baseBlock;
+            BaseBlock baseBlock = null;
             if (type instanceof CaveBlock) {
                 baseBlock = new CaveBlock();
             } else if (type instanceof GroundBlock) {
                 baseBlock = new GroundBlock();
+            } else if (type instanceof MountBlock) {
+                baseBlock = new MountBlock();
             } else {
                 baseBlock = new CaveBlock();
             }
@@ -69,11 +71,13 @@ public class Wall extends Boundable {
     public static Wall buildVertical(int count, int x, int y, BaseBlock type) {
         Wall wall = new Wall(count, x, y, false);
         for (int i = 0; i < count; i++) {
-            BaseBlock baseBlock;
+            BaseBlock baseBlock = null;
             if (type instanceof CaveBlock) {
                 baseBlock = new CaveBlock();
             } else if (type instanceof GroundBlock) {
                 baseBlock = new GroundBlock();
+            } else if (type instanceof MountBlock) {
+                baseBlock = new MountBlock();
             } else {
                 baseBlock = new CaveBlock();
             }

@@ -1,6 +1,5 @@
 package com.mygdx.mount.game.manager.game.services;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.mount.game.actors.*;

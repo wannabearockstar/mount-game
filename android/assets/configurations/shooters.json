@@ -35,8 +35,16 @@
     "x": 5100,
     "y": 0,
     "directionHolder": "RIGHT",
-    "speed": 2,
+    "speed": 3,
     "range": 300,
-    "step": 200
-  }
+    "step": 300
+  },
+  {
+        "x": 6700,
+        "y": 100,
+        "directionHolder": "LEFT",
+        "speed": 3,
+        "range": 300,
+        "step": 170
+      }
 ]

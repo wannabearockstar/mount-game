@@ -1,14 +1,32 @@
 [
   {
     "count": 10,
-    "x": 650,
+    "x": 600,
     "y": 60,
     "horizontal": true
   },
   {
     "count": 5,
-    "x": 920,
+    "x": 870,
     "y": 110,
     "horizontal": true
-  }
+  },
+  {
+      "count": 3,
+      "x": 1650,
+      "y": 0,
+      "horizontal": false
+    },
+    {
+      "count": 3,
+      "x": 1680,
+      "y": 0,
+      "horizontal": false
+    },
+    {
+      "count": 10,
+      "x": 1770,
+      "y": 110,
+      "horizontal": true
+    }
 ]

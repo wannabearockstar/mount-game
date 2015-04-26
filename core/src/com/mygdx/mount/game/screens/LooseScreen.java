@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.mount.MountGame;
 
@@ -13,16 +14,20 @@ import com.mygdx.mount.MountGame;
  */
 public class LooseScreen implements Screen, InputProcessor {
 
+    BitmapFont font;
     public static final String TEXTURE_URL = "sprites/lose_screen.jpg";
     private Texture texture;
     private MountGame game;
     SpriteBatch batch;
+    int points;
 
-    public LooseScreen(MountGame game) {
+    public LooseScreen(MountGame game, int points) {
         this.game = game;
         texture = new Texture(TEXTURE_URL);
         batch = new SpriteBatch();
         Gdx.input.setInputProcessor(this);
+        font = new BitmapFont();
+        this.points = points;
     }
 
     @Override
@@ -36,6 +41,7 @@ public class LooseScreen implements Screen, InputProcessor {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(texture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        font.draw(batch, "YOUR SCORE: " + points, Gdx.graphics.getWidth() / 2 - 50, Gdx.graphics.getHeight() / 2 - 100);
         batch.end();
 
     }
