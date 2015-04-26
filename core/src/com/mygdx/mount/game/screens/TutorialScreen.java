@@ -5,25 +5,25 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.mount.MountGame;
 
 /**
- * Created by dejibqp on 25.04.15.
+ * Created by dejibqp on 26.04.15.
  */
-public class StartScreen implements Screen, InputProcessor {
+public class TutorialScreen implements Screen, InputProcessor {
+
     SpriteBatch batch;
-    private static final String TEXTURE_URL = "sprites/start_screen.png";
+    private static final String TEXTURE_URL = "sprites/tutorial4.png";
     MountGame game;
     private Texture texture;
 
-    public StartScreen(MountGame game) {
+    public TutorialScreen(MountGame game){
         batch = new SpriteBatch();
         this.game = game;
         texture = new Texture(TEXTURE_URL);
-        Gdx.input.setInputProcessor(this);
     }
-
     @Override
     public void show() {
 
@@ -85,12 +85,7 @@ public class StartScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if(screenX>Gdx.graphics.getWidth()) {
-            game.setScreen(new GameScreen(game));
-        }
-        else{
-            game.setScreen(new TutorialScreen(game));
-        }
+        game.setScreen(new StartScreen(game));
         return false;
     }
 
