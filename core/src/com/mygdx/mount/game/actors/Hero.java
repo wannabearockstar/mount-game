@@ -18,7 +18,13 @@ public class Hero extends Boundable {
     public final static int ACCELERATION_TIME = 2;
     public final static float SLOW_CONSTANT = 50;
     public final static float JUMP_MAX_HEIGHT = 100;
+    public final static float JUMP_MULTIPLICAND = 2f;
     public final static int STEP_SIZE = 50;
+    public final static int POWERED_SECONDS_TIME = 10;
+
+
+    public long poweredTime = 0;
+    protected boolean powered = false;
 
     protected ArrayList<Boundable> consumables = new ArrayList<Boundable>();
     public State getState() {
@@ -129,5 +135,14 @@ public class Hero extends Boundable {
         System.out.println("I used it! Now count of my consumables is " + consumables.size());
         return true;
 
+    }
+
+    public boolean isPowered() {
+        return powered;
+    }
+
+    public Hero setPowered(boolean powered) {
+        this.powered = powered;
+        return this;
     }
 }

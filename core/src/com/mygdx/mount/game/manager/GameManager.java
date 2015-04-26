@@ -171,8 +171,16 @@ public class GameManager extends Stage implements InputProcessor {
                 }
             }
 
-            if (currentTouch != null && currentTouch.equals(TouchService.REALM.RIGHT_LOWER)) {
-                hero.activateConsumable();
+            if (currentTouch != null && currentTouch.equals(TouchService.REALM.RIGHT_LOWER) && !hero.isPowered()) {
+                if (hero.activateConsumable()) {
+                    hero.setPowered(true);
+                    hero.poweredTime = System.currentTimeMillis() / 1000L;
+                    System.out.println("Here we go");
+                }
+            }
+            if (hero.isPowered() && System.currentTimeMillis() / 1000L > hero.poweredTime + Hero.POWERED_SECONDS_TIME) {
+                hero.setPowered(false);
+                System.out.println("Its over =(");
             }
         }
     }

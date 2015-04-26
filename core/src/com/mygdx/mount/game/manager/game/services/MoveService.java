@@ -77,6 +77,7 @@ public class MoveService {
     private static void jump(Hero hero) {
         if (hero.getState().equals(Hero.State.Standing)) {
             hero.setState(Hero.State.Ascending);
+            hero.currentJumpSpeed = 200;
             hero.setHeroJumpHeight(0);
         }
     }
@@ -96,11 +97,14 @@ public class MoveService {
         }
         if (hero.getState().equals(Hero.State.Ascending)) {
             hero.setCurrentSprite(Hero.heroSprites[6]);
-            float distance = (Hero.MAX_SPEED * delta * (hero.currentJumpSpeed / 30));
+            float distance = (Hero.MAX_SPEED * delta * (hero.currentJumpSpeed / 60));
             hero.setY(hero.getY() + distance);
             hero.heroJumpHeight += distance;
             hero.currentJumpSpeed -= 5;
-            if (hero.getHeroJumpHeight() > Hero.JUMP_MAX_HEIGHT) {
+            if ((!hero.isPowered() && hero.getHeroJumpHeight() > Hero.JUMP_MAX_HEIGHT)
+                    ||
+                    (hero.isPowered() && hero.getHeroJumpHeight() > Hero.JUMP_MAX_HEIGHT * Hero.JUMP_MULTIPLICAND)
+                    ) {
                 hero.setY(hero.getY() + distance);
                 hero.currentJumpSpeed = 0;
                 hero.setState(Hero.State.Descending);
@@ -109,7 +113,7 @@ public class MoveService {
         }
         if (hero.getState().equals(Hero.State.Descending)) {
             hero.setCurrentSprite(Hero.heroSprites[5]);
-            float distance = (hero.currentJumpSpeed * delta * (hero.currentJumpSpeed / 30));
+            float distance = (hero.currentJumpSpeed * delta * (hero.currentJumpSpeed / 60));
             hero.setHeroJumpHeight(hero.getHeroJumpHeight() - distance);
             hero.currentJumpSpeed += 5;
             if (hero.getY() - distance < 0) {
