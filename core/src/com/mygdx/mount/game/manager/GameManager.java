@@ -21,9 +21,9 @@ public class GameManager extends Stage implements InputProcessor {
     private static final String CAVE_URL = "sprites/cave-bg.jpg";
     private static final String GROUND_URL = "sprites/wheat-field-bg.jpg";
     private static final String MOUNTAIN_URL = "sprites/olympus-bg.jpg";
-    public static final int SCREEN_WIDTH = 5500;
+    public static final int SCREEN_WIDTH = 7500;
     public static final int SCREEN_HEIGHT = 900;
-    public static final int REALM_WIDTH = 2000;
+    public static final int REALM_WIDTH = 2500;
     public static final int REALM_OFFSET = -500;
     CollisionService.Collision collision;
     public BitmapFont font;
@@ -92,6 +92,8 @@ public class GameManager extends Stage implements InputProcessor {
         touchService = new TouchService();
         moveService = new MoveService(this);
         hero = new Hero();
+        hero.setX(4400);
+        hero.setY(200);
         caveTexture = new Texture(CAVE_URL);
         groundTexture = new Texture(GROUND_URL);
         mountainTexture = new Texture(MOUNTAIN_URL);
@@ -100,6 +102,7 @@ public class GameManager extends Stage implements InputProcessor {
         state = GAME_STATE.VALID;
         walls = BuildService.createMap(BuildService.generateConfigurations("configurations/demoLevel.json"), new CaveBlock());
         walls.addAll(BuildService.createMap(BuildService.generateConfigurations("configurations/groundLevel.json"), new GroundBlock()));
+        walls.addAll(BuildService.createMap(BuildService.generateConfigurations("configurations/mountLevel.json"), new MountBlock()));
         camera = getCamera();
         collisionService = new CollisionService();
         shooters = BuildService.getShooters();
@@ -120,6 +123,8 @@ public class GameManager extends Stage implements InputProcessor {
         drawService.drawStats(this);
         drawService.drawConsumables(consumables, getBatch());
         batch.end();
+
+
     }
 
     public void update() {
@@ -170,7 +175,7 @@ public class GameManager extends Stage implements InputProcessor {
             if (collisionService.isHeroCollide(hero, consumables)) {
                 collision = collisionService.getCollisionForHero();
                 if (collision != null && collision.block instanceof Consumable && collision.block.isExist) {
-                    hero.addConsumable(collision.block);
+                    hero.getConsumables().add(collision.block);
                     System.out.println(hero.getConsumables().size());
                     collision.block.isExist = false;
                 }

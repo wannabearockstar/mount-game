@@ -1,6 +1,5 @@
 package com.mygdx.mount.game.manager.game.services;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.mount.game.actors.*;
@@ -49,12 +48,7 @@ public class DrawService {
     }
 
     public void drawStats(GameManager manager) {
-        manager.font.draw(manager.batch, "Distance: " + (int) manager.hero.getX() / 100, manager.camera.position.x - GameScreen.CAMERA_WIDTH / 2, (GameScreen.CAMERA_HEIGHT - 30));
-        manager.font.draw(manager.batch, "Consumables: ", manager.camera.position.x + GameScreen.CAMERA_WIDTH / 2 - manager.hero.getConsumables().size() * Consumable.WIDTH - 100, (GameScreen.CAMERA_HEIGHT - 30));
-        drawHeroConsumables(manager);
-        if (manager.hero.isPowered()) {
-            drawHeroPoweredCountdown(manager);
-        }
+        manager.font.draw(manager.batch, "Distance: " + (int) manager.hero.getX()/10, manager.camera.position.x - GameScreen.CAMERA_WIDTH / 2, (GameScreen.CAMERA_HEIGHT - 30));
     }
 
     public void drawConsumables(Consumable[] consumables, Batch batch) {
@@ -63,15 +57,5 @@ public class DrawService {
                 batch.draw(consumable.getBlockTexture(), consumable.getX(), consumable.getY(), consumable.getWidth(), consumable.getHeight());
             }
         }
-    }
-
-    public void drawHeroConsumables(GameManager manager) {
-        for (int i = 0; i < manager.hero.getConsumables().size(); i++) {
-            manager.batch.draw(manager.hero.getConsumables().get(i).getBlockTexture(), manager.camera.position.x + GameScreen.CAMERA_WIDTH / 2 - i * Consumable.WIDTH - 30, GameScreen.CAMERA_HEIGHT - 50, Consumable.WIDTH, Consumable.HEIGHT);
-        }
-    }
-
-    public void drawHeroPoweredCountdown(GameManager manager) {
-        manager.font.draw(manager.batch, "Super jump countdown: " + (manager.hero.poweredTime + manager.hero.POWERED_SECONDS_TIME - (System.currentTimeMillis() / 1000L)), manager.camera.position.x - GameScreen.CAMERA_WIDTH / 2, 0);
     }
 }

@@ -1,0 +1,44 @@
+[{
+    "count": 2,
+    "x": 3600,
+    "y": 0,
+    "horizontal": false
+  },
+  {
+    "count": 5,
+    "x": 4500,
+    "y": 60,
+    "horizontal": true
+  },
+  {
+    "count": 8,
+    "x": 4700,
+    "y": 110,
+    "horizontal": true
+  },
+  {
+    "count": 2,
+    "x": 5000,
+    "y": 0,
+    "horizontal": false
+  },
+  {
+    "count": 8,
+    "x": 5030,
+    "y": 60,
+    "horizontal": true
+  },
+  {
+    "count":1,
+    "x": 5450,
+    "y":0,
+    "horizontal":false
+  },
+  {
+      "count":15,
+      "x": 5800,
+      "y":60,
+      "horizontal":true
+    }
+
+]

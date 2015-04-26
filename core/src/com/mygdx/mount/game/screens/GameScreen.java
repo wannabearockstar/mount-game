@@ -36,7 +36,7 @@ public class GameScreen implements Screen {
         if (manager.checkGameValid()) {
             manager.draw();
         } else {
-            game.setScreen(new LooseScreen(game));
+            game.setScreen(new LooseScreen(game, (int) (manager.hero.getX() / 10)));
         }
     }
 
